@@ -1,27 +1,60 @@
 :root {
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
-
-  /* font-size: 18px/145%;
-  letter-spacing: 0.18px; */
-  height:100vh;
   color-scheme: light dark;
   color: white;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  
+
+   /* font-size: 18px/145%;
+  letter-spacing: 0.18px; */
 
   /* @media (max-width: 1024px) {
     font-size: 16px;
   } */
 }
 
+@font-face {
+    font-family: "Inter";
+    src: url("./assets/fonts/Inter/InterVariable.ttf");
+}
+
+@font-face {
+    font-family: "Young Serif";
+    src: url("./assets/fonts/Young-Serif/YoungSerif-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Office Code Pro";
+    src: url("./assets/fonts/Office-Code-Pro/officecodepro-regular.otf");
+}
+
+@font-face {
+    font-family: "Office Code Pro Medium";
+    src: url("./assets/fonts/Office-Code-Pro/officecodepro-medium.otf");
+}
+
+@font-face {
+    font-family: "Office Code Pro Medium Italic";
+    src: url("./assets/fonts/Office-Code-Pro/officecodepro-mediumitalic.otf");
+}
+
+@font-face {
+    font-family: "Office Code Pro Bold";
+    src: url("./assets/fonts/Office-Code-Pro/officecodepro-bold.otf");
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
   }
+}
+
+#root{
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height:100%;
 }
 
 body {
