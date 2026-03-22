@@ -1,3 +1,9 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 :root {
   color-scheme: light dark;
   color: white;
@@ -5,6 +11,7 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --bg:#353535;
 
    /* font-size: 18px/145%;
   letter-spacing: 0.18px; */
