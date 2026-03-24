@@ -7,31 +7,28 @@
     z-index: 1;
 }
 
-#app{
-    position: relative;
-    z-index: 2;
-}
-
 main{
     position:relative;
     display: flex;
-    height:400px;
-    color:red !important;
+    min-height:300px;
+    height:22vw;
+    max-height:600px;
 }
 
 aside{
     background-color: var(--bg);
     height:100%;
-    aspect-ratio: 1;
+    aspect-ratio: 6/7;
     border-radius: 0 0.5rem 0.5rem 0;
     z-index: 3;
 }
 
 main #data{
     background-color: var(--bg);
-    width:550px;
+    height:100%;
+    aspect-ratio: 6/5;
     z-index: 3;
-    background-color: rgba(255, 235, 205, 0.336);
+    border:2px solid white;
 }
 
 nav{
@@ -61,6 +58,7 @@ main::before, #shadow::before{
     border-radius: 0 0.5rem 0.5rem 0;
     bottom:-10%;
     right:3%;
+    filter:blur(6px);
 }
 
 #shadow::before{position:relative;background-color: rgb(19, 19, 19);z-index: 1;}
@@ -74,11 +72,14 @@ main::before, #shadow::before{
 
 h1{
     font-family: 'Inter';
-    font-weight:800;
-    letter-spacing: 0.2rem;
+    font-weight:900;
+    letter-spacing: 0.18rem;
     font-size: 4.5em;
     position: absolute;
-    top:-15%;
-    left:80px;
+    top:-0.8em;
+    left:10%;
 }
 
+canvas{
+    background-color: red;
+}
