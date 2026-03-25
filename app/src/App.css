@@ -10,9 +10,7 @@
 main{
     position:relative;
     display: flex;
-    min-height:300px;
-    height:22vw;
-    max-height:600px;
+    height:clamp(300px,22vw,600px);
 }
 
 aside{
@@ -29,12 +27,96 @@ main #data{
     aspect-ratio: 6/5;
     z-index: 3;
     border:2px solid white;
+    background-color: rgba(85, 85, 85, 0.877);
 }
 
 nav{
     height:100%;
     aspect-ratio: 1/2;
     z-index: 3;
+}
+
+.wheel-nav{
+    position: relative;
+    touch-action: none;
+    user-select: none;
+    cursor: grab;
+}
+
+
+.wheel-nav:active, .wheel-option:active{
+    cursor: grabbing;
+}
+
+.wheel{
+    --wheel-padding: clamp(1rem, 2vw, 6rem);
+    position: absolute;
+    inset: 0;
+    width: 200%;
+    height: 100%;
+}
+
+.wheel-option{
+    --radius: 110%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: clamp(100px, 35%, 250px);
+    aspect-ratio: 3/1;
+    font-size: clamp(1.5em,2vw,3.5em);
+    border: 0;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    cursor: grab;
+    color: rgba(255, 255, 255, 0.52);
+    transform:
+        translate(-50%, -50%)
+        rotate(var(--item-angle))
+        translateX(var(--radius))
+        rotate(90deg);
+    transition: color 180ms ease, opacity 180ms ease, filter 180ms ease;
+}
+
+.wheel-option.is-selected{
+    color: #ffd84e;
+    filter: drop-shadow(0 0 0.7rem rgba(255, 216, 78, 0.35));
+}
+
+/* .wheel-option__char{
+    position: relative;
+    left: 50%;
+    top: 50%;
+    font-family: 'Inter';
+    font-weight: 800;
+    font-size: clamp(0.78rem, 1.6vw, 1rem);
+    line-height: 1;
+    transform:
+        translate(-50%, -50%)
+        rotate(var(--char-angle))
+        translateY(-0.85rem)
+        rotate(calc(-1 * var(--char-angle)));
+    transform-origin: center;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    white-space: pre;
+} */
+
+.wheel-nav__value{
+    position: absolute;
+    top: 50%;
+    left: clamp(0.75rem, 1.6vw, 1.25rem);
+    left:-200px;
+    transform: translateY(-50%);
+    font-family: 'Inter';
+    font-size: clamp(0.95rem, 1.7vw, 1.2rem);
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #ffd84e;
+    z-index: 4;
+    pointer-events: none;
+    text-shadow: 0 0 1.2rem rgba(255, 216, 78, 0.35);
 }
 
 main::before, #shadow::before{
@@ -60,7 +142,6 @@ main::before, #shadow::before{
     right:3%;
     filter:blur(6px);
 }
-
 #shadow::before{position:relative;background-color: rgb(19, 19, 19);z-index: 1;}
 #shadow::after{
     display:block;
@@ -74,12 +155,8 @@ h1{
     font-family: 'Inter';
     font-weight:900;
     letter-spacing: 0.18rem;
-    font-size: 4.5em;
+    font-size:clamp(4.35em,5vw,8.4em);
     position: absolute;
     top:-0.8em;
     left:10%;
-}
-
-canvas{
-    background-color: red;
 }

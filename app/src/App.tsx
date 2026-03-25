@@ -1,30 +1,37 @@
-// import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './App.css'
+import QRCodeStyling from "qr-code-styling";
 
 import Background from './components/Background'
+import WheelSelect from './components/WheelSelect'
+
+const qrCode = new QRCodeStyling({width: 250, height: 250, data:'ala'});
+const typeOptions = [ 'URL', 'Text', 'Email', 'Phone', 'SMS','vCard', 'Wi-Fi',];
 
 function App() {
 
+  const ref = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (ref.current) {
+      qrCode.append(ref.current);
+    }
+  }, [])
+
+  qrCode.getRawData("svg").then((buffer) => {
+    console.log(buffer)
+  });
+ 
   return (
     <>
         <main>
           <h1>QRnerator</h1>
-          <nav>
-            <select name="type" id="type">
-              <option value="text">Text</option>
-              <option value="url">URL</option>
-              <option value="email">Email</option>
-              <option value="phone">Phone</option>
-              <option value="sms">SMS</option>
-              <option value="wifi">Wi-Fi</option>
-              <option value="vcard">vCard</option>
-            </select>
-          </nav>
+          <WheelSelect options={typeOptions} />
           <div id='data'>
-            <h2>Title</h2>
+            
           </div>
           <aside>
-            <canvas id='code' width='200' height='200'></canvas>
+            <div ref={ref}></div>
             <button id='download'>Download</button>
             <div>
               <label htmlFor='PNG'>
