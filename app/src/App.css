@@ -26,8 +26,6 @@ main #data{
     height:100%;
     aspect-ratio: 6/5;
     z-index: 3;
-    border:2px solid white;
-    background-color: rgba(85, 85, 85, 0.877);
 }
 
 nav{
@@ -77,12 +75,28 @@ nav{
         rotate(var(--item-angle))
         translateX(var(--radius))
         rotate(90deg);
-    transition: color 180ms ease, opacity 180ms ease, filter 180ms ease, transform 250ms;
+    transition: color 180ms ease, opacity 180ms ease, filter 180ms ease;
 }
 
 .wheel-option.is-selected{
     color: #ffd84e;
     filter: drop-shadow(0 0 1.2rem rgba(255, 205, 22, 0.8));
+    position: absolute;
+    bottom:-50px;
+}
+
+.wheel-option.is-selected::after{
+    content:'';
+    position: absolute;
+    display: block;
+    width:8px;
+    aspect-ratio: 1;
+    background-color: rgb(255, 200, 0);
+    filter: drop-shadow(0 0 1.2rem rgba(255, 205, 22, 0.8));
+    border-radius: 50%;
+    left:50%;
+    transform: translate(-50%,0);
+    bottom:-20px;
 }
 
 /* .wheel-option__char{

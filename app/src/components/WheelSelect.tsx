@@ -1,23 +1,18 @@
-import { useEffect, useRef, useState, type CSSProperties, type PointerEvent as ReactPointerEvent } from 'react'
+import { useRef, useState, type CSSProperties, type PointerEvent as ReactPointerEvent } from 'react';
+import { animate } from 'animejs';
 
 function normalizeAngle(angle: number) {
   return ((angle % 360) + 360) % 360;
 }
 
 function clampAngleDelta(delta: number) {
-  if (delta > 180) {
-    return delta - 360;
-  }
-
-  if (delta < -180) {
-    return delta + 360;
-  }
-
+  if (delta > 180) return delta - 360;
+  if (delta < -180) return delta + 360;
   return delta;
 }
-
 function WheelSelect(props:{ options: string[], selected: number, onSelectedChange: (index: number) => void }) {
-  
+  const [rotation, setRotation] = useState(180);
+
   const dragState = useRef<{
     pointerId: number;
     startAngle: number;
@@ -27,9 +22,17 @@ function WheelSelect(props:{ options: string[], selected: number, onSelectedChan
   } | null>(null);
 
   const navRef = useRef<HTMLElement | null>(null);
-  const [rotation, setRotation] = useState(180);
+  const animRef = useRef<ReturnType<typeof animate> | null>(null);
+  const rawRotation = useRef(180);
 
   const step = 360 / props.options.length;
+
+  const cancelAnimation = () => {
+    if (animRef.current) {
+      animRef.current.pause();
+      animRef.current = null;
+    }
+  };
 
   const getAngleFromPointerEvent = (event: ReactPointerEvent) => {
     if (navRef.current) {
@@ -42,6 +45,7 @@ function WheelSelect(props:{ options: string[], selected: number, onSelectedChan
   };
 
   const handlePointerDown = (event: ReactPointerEvent) => {
+    cancelAnimation();
     if (navRef.current) {
       const startAngle = getAngleFromPointerEvent(event);
       dragState.current = {
@@ -88,6 +92,7 @@ function WheelSelect(props:{ options: string[], selected: number, onSelectedChan
       const angleDelta = clampAngleDelta(currentAngle - dragState.current.startAngle);
       const newRotation = normalizeAngle(dragState.current.startRotation + angleDelta);
       setRotation(newRotation);
+      rawRotation.current = newRotation;
       dragState.current = null;
 
       snapToNearestOption();
@@ -104,6 +109,40 @@ function WheelSelect(props:{ options: string[], selected: number, onSelectedChan
       const angleToNearest = normalizeAngle(180 - nearestIndex * step);
       setRotation(angleToNearest);
   };
+
+  const handleOptionClick = (index: number) => {
+    cancelAnimation();
+
+    const targetNormalized = normalizeAngle(180 - index * step);
+    const delta = clampAngleDelta(targetNormalized - normalizeAngle(rawRotation.current));
+
+    if (Math.abs(delta) < 0.5) {
+      props.onSelectedChange(index);
+      return;
+    }
+
+    const target = rawRotation.current + delta;
+    const animTarget = { value: rawRotation.current };
+
+    animRef.current = animate(animTarget, {
+      value: target,
+      duration: 520,
+      easing: 'easeOutExpo',
+      onUpdate() {
+        rawRotation.current = animTarget.value;
+        setRotation(animTarget.value);
+      },
+      onComplete() {
+        const normalized = normalizeAngle(animTarget.value);
+        rawRotation.current = normalized;
+        setRotation(normalized);
+        animRef.current = null;
+      },
+    });
+
+    props.onSelectedChange(index);
+  };
+
 
   return (
     <nav
@@ -125,16 +164,12 @@ function WheelSelect(props:{ options: string[], selected: number, onSelectedChan
               key={option}
               style={{ '--item-angle': `${angle}deg` } as CSSProperties}
               type="button"
-              onClick={() => {props.onSelectedChange(index);setRotation(normalizeAngle(180 - index * step))}}
+              onClick={() => handleOptionClick(index)}
             >
               <p>{option}</p>
             </button>
           );
         })}
-      </div>
-
-      <div className="wheel-nav__value">
-          {props.options[props.selected]}
       </div>
     </nav>
   );
