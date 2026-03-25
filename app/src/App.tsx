@@ -6,10 +6,11 @@ import Background from './components/Background'
 import WheelSelect from './components/WheelSelect'
 
 const qrCode = new QRCodeStyling({width: 250, height: 250, data:'ala'});
-const typeOptions = [ 'URL', 'Text', 'Email', 'Phone', 'SMS','vCard', 'Wi-Fi',];
+const typeOptions = [ 'URL', 'Text', 'Email', 'Phone', 'SMS','vCard', 'Wi-Fi'];
 
 function App() {
 
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const ref = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -26,7 +27,7 @@ function App() {
     <>
         <main>
           <h1>QRnerator</h1>
-          <WheelSelect options={typeOptions} />
+          <WheelSelect options={typeOptions} selected={selectedIndex} onSelectedChange={setSelectedIndex} />
           <div id='data'>
             
           </div>
