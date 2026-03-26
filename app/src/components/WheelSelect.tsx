@@ -10,6 +10,7 @@ function clampAngleDelta(delta: number) {
   if (delta < -180) return delta + 360;
   return delta;
 }
+
 function WheelSelect(props:{ options: string[], selected: number, onSelectedChange: (index: number) => void }) {
   const [rotation, setRotation] = useState(180);
 
@@ -105,9 +106,11 @@ function WheelSelect(props:{ options: string[], selected: number, onSelectedChan
         const bestOptionAngle = Math.abs(180 - normalizeAngle(nearest * step + rotation));
         return optionAngle < bestOptionAngle ? index : nearest;
       }, 0);
-      props.onSelectedChange(nearestIndex);
-      const angleToNearest = normalizeAngle(180 - nearestIndex * step);
-      setRotation(angleToNearest);
+      //props.onSelectedChange(nearestIndex);
+      // const angleToNearest = normalizeAngle(180 - nearestIndex * step);
+      // setRotation(angleToNearest);
+      handleOptionClick(nearestIndex);
+      
   };
 
   const handleOptionClick = (index: number) => {
