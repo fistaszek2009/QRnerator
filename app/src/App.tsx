@@ -10,7 +10,8 @@ import RowSelect from "./components/RowSelect";
 const typeOptions = ["URL", "Text", "Email", "Phone", "SMS", "vCard", "Wi-Fi"];
 
 function App() {
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [typeIndex, setTypeIndex] = useState(0);
+  const [formatIndex, setFormatIndex] = useState(0);
   const codeRef = useRef<HTMLDivElement | null>(null);
   const qrCodeRef = useRef<QRCodeStyling | null>(null);
 
@@ -78,16 +79,16 @@ function App() {
         <h1>QRnerator</h1>
         <WheelSelect
           options={typeOptions}
-          selected={selectedIndex}
-          onSelectedChange={setSelectedIndex}
+          selected={typeIndex}
+          onSelectedChange={setTypeIndex}
         />
         <div id="data"></div>
         <aside>
           <div id="code" ref={codeRef}></div>
           <RowSelect
             options={["PNG", "JPG", "SVG", "RAW"]}
-            selected={0}
-            onSelectedChange={() => {}}
+            selected={formatIndex}
+            onSelectedChange={setFormatIndex}
           />
           <button id="download">
             Download <FontAwesomeIcon icon="arrow-down" bounce/>

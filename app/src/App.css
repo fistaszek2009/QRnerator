@@ -18,7 +18,7 @@ aside {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap:4%;
+  gap:3%;
   background-color: var(--bg);
   height: 100%;
   aspect-ratio: 6/7;
@@ -188,8 +188,9 @@ main > h1 {
 }
 
 aside #code{
-  width: 75%;
+  width: 70%;
   aspect-ratio: 1;
+  margin-bottom: 5%;
 }
 
 aside #code canvas,
@@ -203,7 +204,7 @@ aside #code svg {
 #download{
   font-family: 'Inter', monospace;
   font-weight: 600;
-  font-size: 19px;
+  font-size: clamp(0.9em, 1vw, 1.75em);
   background-color: rgb(75, 143, 75);
   padding: 0.4em 1.5em;
   width:65%;
@@ -221,24 +222,45 @@ aside .row-select{
   width:75%;
 }
 
-.row-select{
-  background-color: rgb(122, 122, 122);
+.row-select {
+  position: relative;
+  background-color: white;
+  color:rgb(122, 122, 122);
   border-radius: 0.3rem;
   display: flex;
-  justify-content: space-evenly;
-  gap:4px;
-  font-size: 19px;
-  font-family: "Office Code Pro Medium",monospace;
-  padding:0.5em 4px;
-
-  & .row-select-item{
-    cursor: pointer;
-    padding:0.35rem 0.9rem;
-    border-radius: 0.2rem;
-  }
-
-  & .row-select-item.is-selected{
-    background-color: white;
-    color:grey;
-  }
+  gap: 4px;
+  font-size: clamp(0.75em, 1vw, 1.25em);
+  padding: 0.5em 0.7em;
+  
 }
+
+.row-select-pill{
+  position: absolute;
+  border-radius: 0.2rem;
+  background-color: rgb(122, 122, 122);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.row-select-item {
+  font-family: "Office Code Pro", monospace;
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  cursor: pointer;
+  border-radius: 0.2rem;
+  padding: 0.3em 0.5em;
+  font-size: inherit;
+  color: inherit;
+  transition: color 180ms ease, font-weight 180ms ease;
+}
+
+.row-select-item:hover{
+  color:white;
+}
+
+.row-select-item.is-selected{
+  font-family: "Office Code Pro Bold", monospace;
+  color:#ffce1c;
+}
+
