@@ -6,12 +6,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Background from "./components/Background";
 import WheelSelect from "./components/WheelSelect";
 import RowSelect from "./components/RowSelect";
+import DataForm from "./components/DataForm";
+import StyleForm from "./components/StyleForm";
 
 const typeOptions = ["URL", "Text", "Email", "Phone", "SMS", "vCard", "Wi-Fi"];
 
 function App() {
   const [typeIndex, setTypeIndex] = useState(0);
   const [formatIndex, setFormatIndex] = useState(0);
+  const [currentView, setCurrentView] = useState(0);
   const codeRef = useRef<HTMLDivElement | null>(null);
   const qrCodeRef = useRef<QRCodeStyling | null>(null);
 
@@ -82,7 +85,14 @@ function App() {
           selected={typeIndex}
           onSelectedChange={setTypeIndex}
         />
-        <div id="data"></div>
+        <div id="data">
+          <RowSelect
+            options={["Data","Style"]}
+            selected={currentView}
+            onSelectedChange={setCurrentView}
+          />
+          {currentView === 0 ? <DataForm typeOptions={typeOptions} typeIndex={typeIndex} codeData={{ data: "" }} /> : <StyleForm />}
+        </div>
         <aside>
           <div id="code" ref={codeRef}></div>
           <RowSelect

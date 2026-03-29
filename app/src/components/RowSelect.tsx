@@ -38,7 +38,7 @@ function RowSelect(props: {
         const itemRect = itemsRef.current[selectedRef.current]!.getBoundingClientRect();
 
         cancelAnimationFrame(frameId);
-        frameId = requestAnimationFrame(() => { pillRef.current!.style.width = `${itemRect.width}px`; pillRef.current!.style.left = `${itemRect.left - containerRef.current!.getBoundingClientRect().left}px` });
+        frameId = requestAnimationFrame(() => { pillRef.current!.style.width = `${itemRect.width}px`; pillRef.current!.style.height = `${itemRect.height}px`; pillRef.current!.style.left = `${itemRect.left - containerRef.current!.getBoundingClientRect().left}px` });
     });
 
     observer.observe(containerRef.current);

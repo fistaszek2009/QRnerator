@@ -11,6 +11,40 @@ main {
   position: relative;
   display: flex;
   height: clamp(300px, 25vw, 600px);
+  max-height: 95vh;
+  min-height: 300px;
+}
+
+@media screen and (max-width: 500px) {
+  main{
+    flex-direction: column;
+  }
+  main::before{
+    border-radius: 50% 50% 0 0 !important;
+    width:100% !important;
+    aspect-ratio: 1;
+  }
+
+  nav{
+    height:50% !important;
+  }
+
+  .wheel{
+    width:100% !important;
+    height:200% !important;
+    aspect-ratio: 1 !important;
+    transform: rotate(90deg);
+  }
+
+  .wheel::before{
+    top: 50% !important;
+    left: 13% !important;
+    transform: translate(0,-50%);
+  }
+
+  .wheel-option{
+    --radius:85% !important;
+  }
 }
 
 aside {
@@ -24,13 +58,17 @@ aside {
   aspect-ratio: 6/7;
   border-radius: 0 0.5rem 0.5rem 0;
   z-index: 3;
+  border: 2px solid grey;
+  border-left:none;
 }
 
 main #data {
   background-color: var(--bg);
   height: 100%;
-  aspect-ratio: 1;
+  aspect-ratio: 6/5;
   z-index: 3;
+  padding:0.6em 1.75em;
+  border: 2px solid grey;
 }
 
 nav {
@@ -52,7 +90,6 @@ nav {
 }
 
 .wheel {
-  --wheel-padding: clamp(1rem, 2vw, 6rem);
   position: absolute;
   inset: 0;
   width: 200%;
@@ -111,7 +148,7 @@ button{
   transform: translate(0, -50%);
 }
 
-.wheel::after {
+/* .wheel::after {
   content: "";
   position: absolute;
   display: block;
@@ -123,7 +160,7 @@ button{
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 4;
-}
+} */
 
 /* nav::after {
   --blur:30px;
@@ -142,6 +179,7 @@ button{
 
 main::before,
 #shadow::before {
+  box-sizing: border-box;
   content: "";
   display: block;
   background-color: var(--bg);
@@ -151,6 +189,10 @@ main::before,
   aspect-ratio: 1;
   border-radius: 50% 0 0 50%;
   z-index: 2;
+}
+
+main::before{
+  border:2px solid grey;
 }
 
 #shadow {
@@ -188,9 +230,9 @@ main > h1 {
 }
 
 aside #code{
-  width: 70%;
+  height: 55%;
   aspect-ratio: 1;
-  margin-bottom: 5%;
+  margin-bottom: 4%;
 }
 
 aside #code canvas,
@@ -207,7 +249,7 @@ aside #code svg {
   font-size: clamp(0.9em, 1vw, 1.75em);
   background-color: rgb(75, 143, 75);
   padding: 0.4em 1.5em;
-  width:65%;
+  width:50%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -219,25 +261,25 @@ aside #code svg {
 }
 
 aside .row-select{
-  width:75%;
+  width:80%;
 }
 
 .row-select {
   position: relative;
-  background-color: white;
-  color:rgb(122, 122, 122);
+  background-color: rgb(83, 83, 83);
+  color:white;
   border-radius: 0.3rem;
   display: flex;
   gap: 4px;
-  font-size: clamp(0.75em, 1vw, 1.25em);
-  padding: 0.5em 0.7em;
+  font-size: clamp(0.8em, 1vw, 1.25em);
+  padding: 0.3em 0.5em;
   
 }
 
 .row-select-pill{
   position: absolute;
   border-radius: 0.2rem;
-  background-color: rgb(122, 122, 122);
+  background-color: rgb(146, 146, 146);
   pointer-events: none;
   z-index: 1;
 }
@@ -256,11 +298,15 @@ aside .row-select{
 }
 
 .row-select-item:hover{
-  color:white;
+  color:lightgrey;
 }
 
 .row-select-item.is-selected{
   font-family: "Office Code Pro Bold", monospace;
-  color:#ffce1c;
+  color:#fad038;
+}
+
+#data .row-select{
+  width:100% !important;
 }
 
