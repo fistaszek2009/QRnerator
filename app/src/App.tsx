@@ -34,9 +34,6 @@ function App() {
         roundSize: false,
         color: "#fad038",
       },
-      // backgroundOptions: {
-      //   color: 'transparent',
-      // },
     });
 
     qrCodeRef.current.append(codeRef.current);
@@ -91,7 +88,7 @@ function App() {
             selected={currentView}
             onSelectedChange={setCurrentView}
           />
-          {currentView === 0 ? <DataForm typeOptions={typeOptions} typeIndex={typeIndex} codeData={{ data: "" }} /> : <StyleForm />}
+          {currentView === 0 ? <DataForm typeOptions={typeOptions} typeIndex={typeIndex} codeData={qrCodeRef} /> : <StyleForm />}
         </div>
         <aside>
           <div id="code" ref={codeRef}></div>

@@ -1,16 +1,43 @@
+import type { RefObject } from "react";
+import { use, useEffect, useState } from "react";
 import Input from "./Input";
+import QRCodeStyling from "qr-code-styling";
+
+import { returnDefaultValues, decodeQrData, encodeQrUrl, encodeQrText} from "../utils/codeData";
 
 export default function DataForm(props: {
   typeOptions: string[];
   typeIndex: number;
-  codeData: { data: string };
+  codeData: RefObject<QRCodeStyling | null>;
 }) {
 
   const selectedType = props.typeOptions[props.typeIndex];
 
-  const updateValue = (value: string) => {
-    props.codeData.data = value;
-  };
+  //********
+  //********
+  //********
+  // ZMIENIĆ BO TO NIEBEZPIECZNE JAKBY SIE ZMIENIŁ!!!
+  const code = props.codeData.current;
+  //********
+  //********
+  //********
+
+  const [codeData, setCodeData] = useState("");
+
+  useEffect(() => {
+    const value =
+      codeData.trim() === ""
+        ? returnDefaultValues(props.typeIndex)
+        : codeData;
+
+    code?.update({
+      data: value,
+    });
+  }, [codeData, props.typeIndex]);
+
+  useEffect(() => {
+    setCodeData("");
+  }, [props.typeIndex]);
 
   return (
     <div className="form">
@@ -20,8 +47,8 @@ export default function DataForm(props: {
           inputType="url"
           label="URL"
           placeholder="https://example.com"
-          value={props.codeData.data}
-          onChange={(e) => updateValue(e.target.value)}
+          value={decodeQrData(props.typeIndex, codeData)}
+          onChange={(e) => encodeQrUrl(e.target.value, setCodeData)}
         />
       ) : null}
 
@@ -30,8 +57,8 @@ export default function DataForm(props: {
           as="textarea"
           label="Text"
           placeholder="Text..."
-          value={props.codeData.data}
-          onChange={(e) => updateValue(e.target.value)}
+          value={decodeQrData(props.typeIndex, codeData)}
+          onChange={(e) => encodeQrText(e.target.value, setCodeData)}
         />
       ) : null}
 
@@ -41,22 +68,22 @@ export default function DataForm(props: {
             inputType="email"
             label="Email"
             placeholder="example@domain.com"
-            value={props.codeData.data}
-            onChange={(e) => updateValue(e.target.value)}
+            value={''}
+            onChange={() => {}}
           />
           <Input
             inputType="text"
             label="Email Subject (optional)"
             placeholder="Subject..."
-            value={props.codeData.data}
-            onChange={(e) => updateValue(e.target.value)}
+            value={''}
+            onChange={() => {}}
           />
           <Input
             as="textarea"
             label="Email Content (optional)"
             placeholder="Email content..."
-            value={props.codeData.data}
-            onChange={(e) => updateValue(e.target.value)}
+            value={''}
+            onChange={() => {}}
           />
         </>
       ) : null}
@@ -66,8 +93,8 @@ export default function DataForm(props: {
           inputType="tel"
           label="Phone"
           placeholder="+12 345 678 901"
-          value={props.codeData.data}
-          onChange={(e) => updateValue(e.target.value)}
+          value={''}
+          onChange={() => {}}
         />
       ) : null}
 
@@ -77,15 +104,15 @@ export default function DataForm(props: {
             inputType="tel"
             label="Phone"
             placeholder="+12 345 678 901"
-            value={props.codeData.data}
-            onChange={(e) => updateValue(e.target.value)}
+            value={''}
+            onChange={() => {}}
           />
           <Input
             inputType="text"
             label="SMS content (optional)"
             placeholder="SMS content..."
-            value={props.codeData.data}
-            onChange={(e) => updateValue(e.target.value)}
+            value={''}
+            onChange={() => {}}
           />
         </>
       ) : null}
@@ -96,36 +123,36 @@ export default function DataForm(props: {
             inputType="text"
             label="First and Last Name"
             placeholder="John Doe"
-            value={props.codeData.data}
-            onChange={(e) => updateValue(e.target.value)}
+            value={''}
+            onChange={() => {}}
           />
           <Input
             inputType="text"
             label="Company/Job title"
             placeholder="ABC Company / CEO"
-            value={props.codeData.data}
-            onChange={(e) => updateValue(e.target.value)}
+            value={''}
+            onChange={() => {}}
           />
           <Input
             inputType="tel"
             label="Phone number"
             placeholder="+12 345 678 901"
-            value={props.codeData.data}
-            onChange={(e) => updateValue(e.target.value)}
+            value={''}
+            onChange={() => {}}
           />
           <Input
             inputType="email"
             label="Email"
             placeholder="example@domain.com"
-            value={props.codeData.data}
-            onChange={(e) => updateValue(e.target.value)}
+            value={''}
+            onChange={() => {}}
           />
           <Input
             inputType="url"
             label="Website (optional)"
             placeholder="https://example.com"
-            value={props.codeData.data}
-            onChange={(e) => updateValue(e.target.value)}
+            value={''}
+            onChange={() => {}}
           />
         </>
       ) : null}
@@ -136,39 +163,39 @@ export default function DataForm(props: {
             inputType="text"
             label="Network Name (SSID)"
             placeholder="Network name..."
-            value={props.codeData.data}
-            onChange={(e) => updateValue(e.target.value)}
+            value={''}
+            onChange={() => {}}
           />
           <Input
             inputType="text"
             label="Password"
             placeholder="Password..."
-            value={props.codeData.data}
-            onChange={(e) => updateValue(e.target.value)}
+            value={''}
+            onChange={() => {}}
           />
           <Input
             as="select"
             label="Encryption"
-            value={props.codeData.data}
+            value={''}
             options={[
               { value: "WPA", label: "WPA/WPA2" },
               { value: "WEP", label: "WEP" },
               { value: "nopass", label: "No Password" },
             ]}
-            onChange={(e) => updateValue(e.target.value)}
+            onChange={() => {}}
           />
           <Input
             inputType="checkbox"
             label="Hidden Network"
-            checked={props.codeData.data === "true"}
-            onChange={(e) => updateValue(e.target.checked ? "true" : "false")}
+            checked={false}
+            onChange={() => {}}
           />
         </>
       ) : null}
 
       <Input
         inputType="range"
-        label="Image Margin"
+        label="Code Margin"
         value="300"
         onChange={() => undefined}
       />
