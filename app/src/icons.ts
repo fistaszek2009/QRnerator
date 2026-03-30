@@ -2,13 +2,8 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 
 import {
   faDownload,
-  faQrcode,
-  faWifi,
-  faEnvelope,
-  faPhone,
-  faUser,
-  faSms,
-  faArrowDown
+  faArrowDown,
+  faXmark
 } from '@fortawesome/free-solid-svg-icons'
 
 import {
@@ -17,19 +12,10 @@ import {
 
 import {
   faGithub,
-  faFacebook,
 } from '@fortawesome/free-brands-svg-icons'
 
 library.add(
   faDownload,
-  faQrcode,
-  faWifi,
-  faEnvelope,
-  faPhone,
-  faUser,
-  faSms,
-  faGithub,
-  faEnvelope2,
-  faFacebook,
-  faArrowDown
+  faArrowDown,
+  faXmark
 )

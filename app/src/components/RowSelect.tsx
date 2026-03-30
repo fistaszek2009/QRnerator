@@ -1,10 +1,11 @@
-import { use, useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { animate, spring } from "animejs";
 
 function RowSelect(props: {
   options: string[];
   selected: number;
   onSelectedChange: (index: number) => void;
+  label?: string;
 }) {
 
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -82,25 +83,28 @@ function RowSelect(props: {
 
 
   return (
-    <div className="row-select" ref={containerRef}>
-      <div className="row-select-pill" ref={pillRef} />
+    <>
+      {props.label && <label className="form-input-label">{props.label}</label>}
+      <div className="row-select form-input-control" ref={containerRef}>
+        <div className="row-select-pill" ref={pillRef} />
 
-      {props.options.map((option, index) => (
-        <button
-          key={index}
-          className={
-            "row-select-item " + (index === props.selected ? "is-selected" : "")
-          }
-          ref={el => {itemsRef.current[index] = el}}
-          onClick={() => {animateToIndex(index, 200 * (Math.abs(index - props.selected) + 1));props.onSelectedChange(index)}}
-          onMouseEnter={() => handleMouseEnter(index)}
-          onMouseLeave={handleMouseLeave}
-          type="button"
-        >
-          <p>{option}</p>
-        </button>
-      ))}
-    </div>
+        {props.options.map((option, index) => (
+          <button
+            key={index}
+            className={
+              "row-select-item " + (index === props.selected ? "is-selected" : "")
+            }
+            ref={el => {itemsRef.current[index] = el}}
+            onClick={() => {animateToIndex(index, 200 * (Math.abs(index - props.selected) + 1));props.onSelectedChange(index)}}
+            onMouseEnter={() => handleMouseEnter(index)}
+            onMouseLeave={handleMouseLeave}
+            type="button"
+          >
+            <p>{option}</p>
+          </button>
+        ))}
+      </div>
+    </>
   );
 }
 

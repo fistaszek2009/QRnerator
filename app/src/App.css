@@ -10,8 +10,7 @@
 main {
   position: relative;
   display: flex;
-  height: clamp(300px, 25vw, 600px);
-  max-height: 95vh;
+  height: clamp(350px, 27.5vw, 650px);
   min-height: 300px;
 }
 
@@ -67,7 +66,7 @@ main #data {
   height: 100%;
   aspect-ratio: 6/5;
   z-index: 3;
-  padding:0.6em 1.75em;
+  padding:0.75em 1.75em;
   border: 2px solid grey;
 }
 
@@ -147,35 +146,6 @@ button{
   top: 50%;
   transform: translate(0, -50%);
 }
-
-/* .wheel::after {
-  content: "";
-  position: absolute;
-  display: block;
-  height: 64%;
-  aspect-ratio: 1;
-  background-color:var(--bg);
-  border-radius: 50%;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 4;
-} */
-
-/* nav::after {
-  --blur:30px;
-  content: "";
-  position: absolute;
-  display: block;
-  height:calc(100% - 2.9 * var(--blur));
-  width:100%;
-  background-color: white;
-  filter:blur(var(--blur));
-  left: 99%;
-  top: 50%;
-  transform: translate(0, -50%);
-  z-index: 2;
-} */
 
 main::before,
 #shadow::before {
@@ -279,7 +249,9 @@ aside .row-select{
 .row-select-pill{
   position: absolute;
   border-radius: 0.2rem;
-  background-color: rgb(146, 146, 146);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.35), rgba(155, 155, 155, 0.3)),
+    rgba(43, 43, 43, 0.9);
   pointer-events: none;
   z-index: 1;
 }
@@ -306,7 +278,145 @@ aside .row-select{
   color:#fad038;
 }
 
-#data .row-select{
+#data>.row-select{
   width:100% !important;
 }
 
+.form {
+  padding:1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.form-input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.38rem;
+}
+
+.form-input-label,
+.form-input-checkbox-row {
+  font-family: "Office Code Pro", monospace;
+  font-size: clamp(0.8rem, 0.9vw, 1rem);
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.form-input-control {
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 0.5rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03)),
+    rgba(22, 22, 22, 0.9);
+  color: white;
+  font-family: "Inter", sans-serif;
+  font-size: clamp(0.9rem, 0.85vw, 0.95rem);
+  padding: 0.8rem 0.95rem;
+  outline: none;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.form-input select option{
+  font-family: inherit;
+}
+
+.form-input-control::placeholder {
+  color: rgba(255, 255, 255, 0.38);
+}
+
+.form-input-control:focus {
+  border-color: rgba(255, 216, 78, 0.85) !important;
+  box-shadow: 0 0 0 0.18rem rgba(255, 216, 78, 0.15);
+}
+
+.form-input-control:not(.row-select):not(input[type="range"]):hover {
+  border-color: rgba(207, 169, 32, 0.5);
+  box-shadow: 0 0 0 0.18rem rgba(255, 216, 78, 0.15);
+}
+
+.form-input-textarea {
+  resize: vertical;
+  min-height: 6.5rem;
+}
+
+.form-input-select {
+  cursor: pointer;
+}
+
+.form-input-checkbox-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  width: fit-content;
+  cursor: pointer;
+}
+
+.form-input-checkbox {
+  width: 1.1rem;
+  height: 1.1rem;
+  padding: 0;
+  accent-color: #ffd84e;
+  box-shadow: none;
+  cursor: pointer;
+}
+
+.form-input-control[type="range"] {
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.form-section{
+  display: flex;
+  flex-direction: column;
+  gap:0.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.form-section h3{
+  font-family: 'Inter',sans-serif;
+  font-size: 1.5em;
+  border-bottom:2px solid;
+  padding-bottom: 0.2rem;
+  margin-bottom:0.6rem;
+}
+
+.form-input-color-frame .form-input-control{
+  cursor:pointer;
+  display: flex;
+  align-items: center;
+  gap:0.5rem;
+}
+
+.form-input-color-frame .form-input-color-opened{
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.form-input-color-preview{
+  display: block;
+  width: 20px;
+  aspect-ratio: 1;
+  border-radius: 0.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.form-input-color-frame .form-input-control>p{
+  color:rgb(187, 187, 187);
+}
+
+.input-section{
+  display: flex;
+  gap:1rem;
+  padding: 0.3rem 0.4rem;
+}
+
+.input-section *{
+  flex:1;
+}

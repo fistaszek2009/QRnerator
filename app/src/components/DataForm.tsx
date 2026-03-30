@@ -1,84 +1,186 @@
-import React from 'react'
+import Input from "./Input";
 
-export default function DataForm(props: {typeOptions: string[], typeIndex: number, codeData: {data: string}}) {
+export default function DataForm(props: {
+  typeOptions: string[];
+  typeIndex: number;
+  codeData: { data: string };
+}) {
+
+  const selectedType = props.typeOptions[props.typeIndex];
+
+  const updateValue = (value: string) => {
+    props.codeData.data = value;
+  };
+
   return (
-    <>
-        <h2>{props.typeOptions[props.typeIndex]} QR code data</h2>
-        { props.typeOptions[props.typeIndex] === "URL" ? <input type="url" placeholder='Type your URL here...' value={props.codeData.data} onChange={e => props.codeData.data = e.target.value} /> : null }
-        { props.typeOptions[props.typeIndex] === "Text" ? <textarea placeholder='Type your text here...' value={props.codeData.data} onChange={e => props.codeData.data = e.target.value} /> : null }
-        { props.typeOptions[props.typeIndex] === "Email" ? 
+    <div className="form">
+
+      {selectedType === "URL" ? (
+        <Input
+          inputType="url"
+          label="URL"
+          placeholder="https://example.com"
+          value={props.codeData.data}
+          onChange={(e) => updateValue(e.target.value)}
+        />
+      ) : null}
+
+      {selectedType === "Text" ? (
+        <Input
+          as="textarea"
+          label="Text"
+          placeholder="Text..."
+          value={props.codeData.data}
+          onChange={(e) => updateValue(e.target.value)}
+        />
+      ) : null}
+
+      {selectedType === "Email" ? (
         <>
-        <input type="email" placeholder='Type your email here...' value={props.codeData.data} onChange={e => props.codeData.data = e.target.value} /> 
-        
-        <br/><label>Email Title (optional):</label>
-        <br/><input type="text" placeholder='Email title...' value={props.codeData.data} onChange={e => props.codeData.data = e.target.value} /> 
-
-        <br/><label>Email Message (optional):</label>
-        <br/><textarea placeholder='Email content...' value={props.codeData.data} onChange={e => props.codeData.data = e.target.value} />
+          <Input
+            inputType="email"
+            label="Email"
+            placeholder="example@domain.com"
+            value={props.codeData.data}
+            onChange={(e) => updateValue(e.target.value)}
+          />
+          <Input
+            inputType="text"
+            label="Email Subject (optional)"
+            placeholder="Subject..."
+            value={props.codeData.data}
+            onChange={(e) => updateValue(e.target.value)}
+          />
+          <Input
+            as="textarea"
+            label="Email Content (optional)"
+            placeholder="Email content..."
+            value={props.codeData.data}
+            onChange={(e) => updateValue(e.target.value)}
+          />
         </>
-        : null 
-        }
-        { props.typeOptions[props.typeIndex] === "Phone" ? <input type="tel" placeholder='Type your phone number here...' value={props.codeData.data} onChange={e => props.codeData.data = e.target.value} /> : null }
-        { props.typeOptions[props.typeIndex] === "SMS" ? 
+      ) : null}
+
+      {selectedType === "Phone" ? (
+        <Input
+          inputType="tel"
+          label="Phone"
+          placeholder="+12 345 678 901"
+          value={props.codeData.data}
+          onChange={(e) => updateValue(e.target.value)}
+        />
+      ) : null}
+
+      {selectedType === "SMS" ? (
         <>
-            <input type="tel" placeholder='Type your phone number here...' value={props.codeData.data} onChange={e => props.codeData.data = e.target.value} /> 
-
-            <br/><label>SMS content (optional):</label>
-            <br/><input type="text" placeholder='SMS content...' value={props.codeData.data} onChange={e => props.codeData.data = e.target.value} /> 
+          <Input
+            inputType="tel"
+            label="Phone"
+            placeholder="+12 345 678 901"
+            value={props.codeData.data}
+            onChange={(e) => updateValue(e.target.value)}
+          />
+          <Input
+            inputType="text"
+            label="SMS content (optional)"
+            placeholder="SMS content..."
+            value={props.codeData.data}
+            onChange={(e) => updateValue(e.target.value)}
+          />
         </>
-        : null 
-         }
-        { props.typeOptions[props.typeIndex] === "vCard" ? 
+      ) : null}
+
+      {selectedType === "vCard" ? (
         <>
-             <br/><label>First and Last Name:</label>
-            <br/><input type="text" placeholder='First and last name...' value={props.codeData.data} onChange={e => props.codeData.data = e.target.value} /> 
-
-             <br/><label>Company/Job title:</label>
-            <br/><input type="text" placeholder='Company or job title...' value={props.codeData.data} onChange={e => props.codeData.data = e.target.value} />
-
-             <br/><label>Phone number:</label>
-            <br/><input type="tel" placeholder='Phone number...' value={props.codeData.data} onChange={e => props.codeData.data = e.target.value} /> 
-
-             <br/><label>Email:</label>
-            <br/><input type="email" placeholder='Email...' value={props.codeData.data} onChange={e => props.codeData.data = e.target.value} />
-
-             <br/><label>Website (optional):</label>
-            <br/><input type="url" placeholder='Website...' value={props.codeData.data} onChange={e => props.codeData.data = e.target.value} /> 
-
+          <Input
+            inputType="text"
+            label="First and Last Name"
+            placeholder="John Doe"
+            value={props.codeData.data}
+            onChange={(e) => updateValue(e.target.value)}
+          />
+          <Input
+            inputType="text"
+            label="Company/Job title"
+            placeholder="ABC Company / CEO"
+            value={props.codeData.data}
+            onChange={(e) => updateValue(e.target.value)}
+          />
+          <Input
+            inputType="tel"
+            label="Phone number"
+            placeholder="+12 345 678 901"
+            value={props.codeData.data}
+            onChange={(e) => updateValue(e.target.value)}
+          />
+          <Input
+            inputType="email"
+            label="Email"
+            placeholder="example@domain.com"
+            value={props.codeData.data}
+            onChange={(e) => updateValue(e.target.value)}
+          />
+          <Input
+            inputType="url"
+            label="Website (optional)"
+            placeholder="https://example.com"
+            value={props.codeData.data}
+            onChange={(e) => updateValue(e.target.value)}
+          />
         </>
-        : null }
-        { props.typeOptions[props.typeIndex] === "Wi-Fi" ? 
+      ) : null}
+
+      {selectedType === "Wi-Fi" ? (
         <>
-            <br/><label>Network Name (SSID):</label>
-            <br/><input type="text" placeholder='Network name...' value={props.codeData.data} onChange={e => props.codeData.data = e.target.value} /> 
-
-            <br/><label>Password:</label>
-            <br/><input type="text" placeholder='Password...' value={props.codeData.data} onChange={e => props.codeData.data = e.target.value} />
-
-            <br/><label>Encryption:</label>
-            <br/><select value={props.codeData.data} onChange={e => props.codeData.data = e.target.value}>
-                <option value="WPA">WPA/WPA2</option>
-                <option value="WEP">WEP</option>
-                <option value="nopass">No Password</option>
-            </select>
-
-            <br/><label>Hidden Network:</label>
-            <br/><input type="checkbox" checked={props.codeData.data === "true"} onChange={e => props.codeData.data = e.target.checked ? "true" : "false"} />
-
-
-
+          <Input
+            inputType="text"
+            label="Network Name (SSID)"
+            placeholder="Network name..."
+            value={props.codeData.data}
+            onChange={(e) => updateValue(e.target.value)}
+          />
+          <Input
+            inputType="text"
+            label="Password"
+            placeholder="Password..."
+            value={props.codeData.data}
+            onChange={(e) => updateValue(e.target.value)}
+          />
+          <Input
+            as="select"
+            label="Encryption"
+            value={props.codeData.data}
+            options={[
+              { value: "WPA", label: "WPA/WPA2" },
+              { value: "WEP", label: "WEP" },
+              { value: "nopass", label: "No Password" },
+            ]}
+            onChange={(e) => updateValue(e.target.value)}
+          />
+          <Input
+            inputType="checkbox"
+            label="Hidden Network"
+            checked={props.codeData.data === "true"}
+            onChange={(e) => updateValue(e.target.checked ? "true" : "false")}
+          />
         </>
-        : null }
+      ) : null}
 
-        <br/><label>Image Margin:</label>
-        <br/><input type='range' min={0} max={1000} defaultValue={300} />
+      <Input
+        inputType="range"
+        label="Image Margin"
+        value="300"
+        onChange={() => undefined}
+      />
 
-        <br/><label>Export Size:</label>
-        <br/><input type='range' min={100} max={1000} defaultValue={300} />
+      <Input
+        inputType="range"
+        label="Export Size"
+        value="300"
+        onChange={() => undefined}
+      />
 
-        <br/><label>Middle Icon:</label>
-        <br/><input type='file' accept='image/*' />
-
-    </>
-  )
+      <Input inputType="file" label="Middle Icon" onChange={() => undefined} />
+    </div>
+  );
 }

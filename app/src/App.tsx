@@ -32,7 +32,7 @@ function App() {
       dotsOptions: {
         type: "square",
         roundSize: false,
-        color: "#000000",
+        color: "#fad038",
       },
       // backgroundOptions: {
       //   color: 'transparent',
@@ -99,6 +99,7 @@ function App() {
             options={["PNG", "JPG", "SVG", "RAW"]}
             selected={formatIndex}
             onSelectedChange={setFormatIndex}
+            label="Download file type"
           />
           <button id="download">
             Download <FontAwesomeIcon icon="arrow-down" bounce/>
