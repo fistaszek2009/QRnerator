@@ -1,43 +1,48 @@
 import type { RefObject } from "react";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Input from "./Input";
 import QRCodeStyling from "qr-code-styling";
 
-import { returnDefaultValues, decodeQrData, encodeQrUrl, encodeQrText} from "../utils/codeData";
+import type { FormDataMap, QrType } from "../utils/types";
+import { DEFAULTS } from "../utils/types";
+import { returnDefaultValues, encodeQrData } from "../utils/codeData";
+
 
 export default function DataForm(props: {
-  typeOptions: string[];
+  typeOptions: readonly QrType[];
   typeIndex: number;
   codeData: RefObject<QRCodeStyling | null>;
+  setExportSize: (size: number) => void;
+
 }) {
 
   const selectedType = props.typeOptions[props.typeIndex];
+  const [margin, setMargin] = useState(10);
+  const [exportSize, setExportSize] = useState(300);
+  const [formData, setFormData] = useState<FormDataMap>({ ...DEFAULTS });
 
-  //********
-  //********
-  //********
-  // ZMIENIĆ BO TO NIEBEZPIECZNE JAKBY SIE ZMIENIŁ!!!
-  const code = props.codeData.current;
-  //********
-  //********
-  //********
-
-  const [codeData, setCodeData] = useState("");
+  const updateField = <T extends QrType, K extends keyof FormDataMap[T]>(
+    type: T,
+    field: K,
+    value: FormDataMap[T][K]
+  ) => {
+    setFormData(prev => ({
+      ...prev,
+      [type]: { ...prev[type], [field]: value }
+    }));
+  };
 
   useEffect(() => {
-    const value =
-      codeData.trim() === ""
-        ? returnDefaultValues(props.typeIndex)
-        : codeData;
+    const encoded = encodeQrData(selectedType, formData[selectedType]);
+    props.codeData.current?.update({ data: (encoded || returnDefaultValues(selectedType)) });
+    console.log(props.codeData.current?._options.data);
+  }, [formData, selectedType, props.codeData]);
 
-    code?.update({
-      data: value,
+  useEffect(() => {
+    props.codeData.current?.update({
+      margin: margin,
     });
-  }, [codeData, props.typeIndex]);
-
-  useEffect(() => {
-    setCodeData("");
-  }, [props.typeIndex]);
+  }, [margin]);
 
   return (
     <div className="form">
@@ -47,8 +52,8 @@ export default function DataForm(props: {
           inputType="url"
           label="URL"
           placeholder="https://example.com"
-          value={decodeQrData(props.typeIndex, codeData)}
-          onChange={(e) => encodeQrUrl(e.target.value, setCodeData)}
+          value={formData.URL.url}
+          onChange={(e) => updateField("URL", "url", e.target.value)}
         />
       ) : null}
 
@@ -57,8 +62,8 @@ export default function DataForm(props: {
           as="textarea"
           label="Text"
           placeholder="Text..."
-          value={decodeQrData(props.typeIndex, codeData)}
-          onChange={(e) => encodeQrText(e.target.value, setCodeData)}
+          value={formData.Text.text}
+          onChange={(e) => updateField("Text", "text", e.target.value)}
         />
       ) : null}
 
@@ -68,22 +73,22 @@ export default function DataForm(props: {
             inputType="email"
             label="Email"
             placeholder="example@domain.com"
-            value={''}
-            onChange={() => {}}
+            value={formData.Email.email}
+            onChange={(e) => updateField("Email", "email", e.target.value)}
           />
           <Input
             inputType="text"
             label="Email Subject (optional)"
             placeholder="Subject..."
-            value={''}
-            onChange={() => {}}
+            value={formData.Email.subject}
+            onChange={(e) => updateField("Email", "subject", e.target.value)}
           />
           <Input
             as="textarea"
             label="Email Content (optional)"
             placeholder="Email content..."
-            value={''}
-            onChange={() => {}}
+            value={formData.Email.body}
+            onChange={(e) => updateField("Email", "body", e.target.value)}
           />
         </>
       ) : null}
@@ -93,8 +98,8 @@ export default function DataForm(props: {
           inputType="tel"
           label="Phone"
           placeholder="+12 345 678 901"
-          value={''}
-          onChange={() => {}}
+          value={formData.Phone.phone}
+          onChange={(e) => updateField("Phone", "phone", e.target.value)}
         />
       ) : null}
 
@@ -104,15 +109,15 @@ export default function DataForm(props: {
             inputType="tel"
             label="Phone"
             placeholder="+12 345 678 901"
-            value={''}
-            onChange={() => {}}
+            value={formData.SMS.phone}
+            onChange={(e) => updateField("SMS", "phone", e.target.value)}
           />
           <Input
             inputType="text"
             label="SMS content (optional)"
             placeholder="SMS content..."
-            value={''}
-            onChange={() => {}}
+            value={formData.SMS.message}
+            onChange={(e) => updateField("SMS", "message", e.target.value)}
           />
         </>
       ) : null}
@@ -123,36 +128,57 @@ export default function DataForm(props: {
             inputType="text"
             label="First and Last Name"
             placeholder="John Doe"
-            value={''}
-            onChange={() => {}}
+            value={formData.vCard.name}
+            onChange={(e) => updateField("vCard", "name", e.target.value)}
           />
           <Input
             inputType="text"
-            label="Company/Job title"
-            placeholder="ABC Company / CEO"
-            value={''}
-            onChange={() => {}}
+            label="Organization (optional)"
+            placeholder="ABC Company"
+            value={formData.vCard.company}
+            onChange={(e) => updateField("vCard", "company", e.target.value)}
+          />
+          <Input
+            inputType="text"
+            label="Title (optional)"
+            placeholder="CEO"
+            value={formData.vCard.title}
+            onChange={(e) => updateField("vCard", "title", e.target.value)}
           />
           <Input
             inputType="tel"
-            label="Phone number"
+            label="Phone number (optional)"
             placeholder="+12 345 678 901"
-            value={''}
-            onChange={() => {}}
+            value={formData.vCard.phone}
+            onChange={(e) => updateField("vCard", "phone", e.target.value)}
           />
           <Input
             inputType="email"
-            label="Email"
+            label="Email (optional)"
             placeholder="example@domain.com"
-            value={''}
-            onChange={() => {}}
+            value={formData.vCard.email}
+            onChange={(e) => updateField("vCard", "email", e.target.value)}
+          />
+          <Input
+            inputType="text"
+            label="Address (optional)"
+            placeholder="123 Main Street"
+            value={formData.vCard.address}
+            onChange={(e) => updateField("vCard", "address", e.target.value)}
           />
           <Input
             inputType="url"
             label="Website (optional)"
             placeholder="https://example.com"
-            value={''}
-            onChange={() => {}}
+            value={formData.vCard.website}
+            onChange={(e) => updateField("vCard", "website", e.target.value)}
+          />
+          <Input
+            as='textarea'
+            label="Note (optional)"
+            placeholder="Additional information..."
+            value={formData.vCard.note}
+            onChange={(e) => updateField("vCard", "note", e.target.value)}
           />
         </>
       ) : null}
@@ -163,32 +189,32 @@ export default function DataForm(props: {
             inputType="text"
             label="Network Name (SSID)"
             placeholder="Network name..."
-            value={''}
-            onChange={() => {}}
+            value={formData["Wi-Fi"].ssid}
+            onChange={(e) => updateField("Wi-Fi", "ssid", e.target.value)}
           />
           <Input
             inputType="text"
             label="Password"
             placeholder="Password..."
-            value={''}
-            onChange={() => {}}
+            value={formData["Wi-Fi"].password}
+            onChange={(e) => updateField("Wi-Fi", "password", e.target.value)}
           />
           <Input
             as="select"
             label="Encryption"
-            value={''}
+            value={formData["Wi-Fi"].encryption}
             options={[
               { value: "WPA", label: "WPA/WPA2" },
               { value: "WEP", label: "WEP" },
               { value: "nopass", label: "No Password" },
             ]}
-            onChange={() => {}}
+            onChange={(e) => updateField("Wi-Fi", "encryption", e.target.value)}
           />
           <Input
             inputType="checkbox"
             label="Hidden Network"
-            checked={false}
-            onChange={() => {}}
+            checked={formData["Wi-Fi"].hidden}
+            onChange={(e) => updateField("Wi-Fi", "hidden", e.target.checked)}
           />
         </>
       ) : null}
@@ -196,15 +222,20 @@ export default function DataForm(props: {
       <Input
         inputType="range"
         label="Code Margin"
-        value="300"
-        onChange={() => undefined}
+        value={margin.toString()}
+        onChange={(e) => setMargin(parseInt(e.target.value) || 0)}
+        min={0}
+        max={50} //exportSize / 2 - 10
+
       />
 
       <Input
         inputType="range"
         label="Export Size"
-        value="300"
-        onChange={() => undefined}
+        value={exportSize.toString()}
+        onChange={(e) => {setExportSize(parseInt(e.target.value) || 300); props.setExportSize(parseInt(e.target.value) || 300)}}
+        min={100}
+        max={1000}
       />
 
       <Input inputType="file" label="Middle Icon" onChange={() => undefined} />

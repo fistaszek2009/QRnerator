@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import "./App.css";
-import QRCodeStyling from "qr-code-styling";
+import QRCodeStyling, { type FileExtension } from "qr-code-styling";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Background from "./components/Background";
@@ -8,12 +8,13 @@ import WheelSelect from "./components/WheelSelect";
 import RowSelect from "./components/RowSelect";
 import DataForm from "./components/DataForm";
 import StyleForm from "./components/StyleForm";
+import type { QrType } from "./utils/types";
 
-const typeOptions = ["URL", "Text", "Email", "Phone", "SMS", "vCard", "Wi-Fi"];
-
+const typeOptions: QrType[] = ["URL", "Text", "Email", "Phone", "SMS", "vCard", "Wi-Fi"];
 function App() {
   const [typeIndex, setTypeIndex] = useState(0);
-  const [formatIndex, setFormatIndex] = useState(0);
+  const [exportFormatIndex, setExportFormatIndex] = useState(0);
+  const [exportSize, setExportSize] = useState(300);
   const [currentView, setCurrentView] = useState(0);
   const codeRef = useRef<HTMLDivElement | null>(null);
   const qrCodeRef = useRef<QRCodeStyling | null>(null);
@@ -88,17 +89,25 @@ function App() {
             selected={currentView}
             onSelectedChange={setCurrentView}
           />
-          {currentView === 0 ? <DataForm typeOptions={typeOptions} typeIndex={typeIndex} codeData={qrCodeRef} /> : <StyleForm />}
+          {currentView === 0 ? <DataForm typeOptions={typeOptions} typeIndex={typeIndex} codeData={qrCodeRef} setExportSize={setExportSize} /> : <StyleForm />}
         </div>
         <aside>
           <div id="code" ref={codeRef}></div>
           <RowSelect
             options={["PNG", "JPG", "SVG", "RAW"]}
-            selected={formatIndex}
-            onSelectedChange={setFormatIndex}
+            selected={exportFormatIndex}
+            onSelectedChange={setExportFormatIndex}
             label="Download file type"
           />
-          <button id="download">
+          <button id="download" onClick={() => {
+            const downloadCode = new QRCodeStyling(qrCodeRef.current?._options);
+            downloadCode.update({width: exportSize, height: exportSize});
+
+            const formats: FileExtension[] = ["png", "jpeg", "svg", 'svg'];
+            const format = formats[exportFormatIndex] ?? "png";
+
+            downloadCode.download({ name: "qr-code", extension: format});
+          }}>
             Download <FontAwesomeIcon icon="arrow-down" bounce/>
           </button>
         </aside>

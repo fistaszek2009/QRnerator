@@ -1,5 +1,4 @@
 import ColorInput from "./ColorInput"
-import RowSelect from "./RowSelect"
 import Input from "./Input";
 
 export default function StyleForm() {

@@ -6,7 +6,8 @@ type BaseProps = {
   className?: string;
 };
 
-type InputFieldProps = BaseProps & {
+type InputFieldProps = BaseProps &
+  InputHTMLAttributes<HTMLInputElement> & {
   as?: "input";
   inputType?: InputHTMLAttributes<HTMLInputElement>["type"];
   value?: string;
@@ -87,10 +88,8 @@ export default function Input({
       <input
         className={`form-input-control${isCheckbox ? " form-input-checkbox" : ""}`}
         type={inputProps.inputType}
-        placeholder={inputProps.placeholder}
-        value={isCheckbox ? undefined : inputProps.value}
-        checked={isCheckbox ? inputProps.checked : undefined}
-        onChange={inputProps.onChange}
+        {...inputProps}
+        
       />
     );
   };
