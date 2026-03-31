@@ -13,6 +13,7 @@ type InputFieldProps = BaseProps &
   value?: string;
   placeholder?: string;
   checked?: boolean;
+  unit?: string;
   options?: never;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 };
@@ -47,6 +48,7 @@ export default function Input({
 }: FieldProps) {
   
   const isCheckbox = as === "input" && "inputType" in props && props.inputType === "checkbox";
+  const isRange = as === "input" && "inputType" in props && props.inputType === "range";
 
   const fieldClassName = `form-input${isCheckbox ? " is-checkbox" : ""}${className ? ` ${className}` : ""}`;
 
@@ -101,6 +103,16 @@ export default function Input({
           {renderField()}
           <span>{label}</span>
         </label>
+        {hint ? <p className="form-input-hint">{hint}</p> : null}
+      </div>
+    );
+  }
+
+  if (isRange) {
+    return (
+      <div className={fieldClassName}>
+        {label ? <label className="form-input-label">{label}: <span className='input-value'>{props.value} {props.unit || ''}</span></label> : null}
+        {renderField()}
         {hint ? <p className="form-input-hint">{hint}</p> : null}
       </div>
     );

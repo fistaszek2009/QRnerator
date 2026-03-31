@@ -226,7 +226,7 @@ export default function DataForm(props: {
         onChange={(e) => setMargin(parseInt(e.target.value) || 0)}
         min={0}
         max={50} //exportSize / 2 - 10
-
+        unit='px'
       />
 
       <Input
@@ -236,6 +236,7 @@ export default function DataForm(props: {
         onChange={(e) => {setExportSize(parseInt(e.target.value) || 300); props.setExportSize(parseInt(e.target.value) || 300)}}
         min={100}
         max={1000}
+        unit='px'
       />
 
       <Input inputType="file" label="Middle Icon" onChange={() => undefined} />

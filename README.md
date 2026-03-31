@@ -5,6 +5,6 @@
 - favicon
 - ask how to deploy it
 - init animations
+- background
 - responsive
-- input range style and visible value
 - POLISH LETTERS
