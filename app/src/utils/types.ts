@@ -1,3 +1,5 @@
+import type { Options } from "qr-code-styling";
+
 type UrlData    = { url: string };
 type TextData   = { text: string };
 type EmailData  = { email: string; subject: string; body: string };
@@ -18,7 +20,7 @@ export type FormDataMap = {
 
 export type QrType = keyof FormDataMap;
 
-export const DEFAULTS: FormDataMap = {
+export const DEFAULTS_DATA: FormDataMap = {
   URL:   { url: "" },
   Text:  { text: "" },
   Email: { email: "", subject: "", body: "" },
@@ -26,4 +28,23 @@ export const DEFAULTS: FormDataMap = {
   SMS:   { phone: "", message: "" },
   vCard: { name: "", company: "", title: "", phone: "", email: "", address: "", website: "", note: "" },
   "Wi-Fi": { ssid: "", password: "", encryption: "WPA", hidden: false },
+};
+
+export const DEFAULTS_STYLE: Options = {
+    dotsOptions: {
+            type: 'square',
+            color: '#fad038',
+            gradient: undefined,
+            roundSize: false,
+        },
+        cornersSquareOptions: {
+            type: 'square',
+            color: '#fad038',
+            gradient: undefined,
+        },
+        cornersDotOptions: {
+            type: 'square',
+            color: '#fad038',
+            gradient: undefined,
+        }
 };

@@ -31,14 +31,14 @@ export default function ColorInput({
   return (
     <div className={fieldClassName}>
       {label ? <label className="form-input-label">{label}</label> : null}
-        <div className={`form-input-control ${opened ? 'form-input-color-opened' : ''}`}>
+        <div className={`form-input-control ${opened ? 'form-input-color-opened' : ''}`} onClick={!opened ? () => setOpened(true) : undefined}>
             { !opened ?
                 <>
-                    <span className="form-input-color-preview" style={{ backgroundColor: props.value }} onClick={() => setOpened(prev => !prev)}></span>
+                    <span className="form-input-color-preview" style={{ backgroundColor: props.value }}></span>
                     <p>{type === 0 ? 'Color' : 'Gradient'}: {props.value}</p>
                 </> :
                 <>
-                    <FontAwesomeIcon icon="xmark" size='lg' onClick={() => setOpened(prev => !prev)} />
+                    <FontAwesomeIcon className="x" icon="xmark" size='lg' onClick={() => setOpened(prev => !prev)} />
                     <RowSelect
                         options={['Single', 'Gradient']}
                         selected={type}

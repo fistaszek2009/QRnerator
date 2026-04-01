@@ -4,7 +4,7 @@ import Input from "./Input";
 import QRCodeStyling from "qr-code-styling";
 
 import type { FormDataMap, QrType } from "../utils/types";
-import { DEFAULTS } from "../utils/types";
+import { DEFAULTS_DATA } from "../utils/types";
 import { returnDefaultValues, encodeQrData } from "../utils/codeData";
 
 
@@ -13,13 +13,13 @@ export default function DataForm(props: {
   typeIndex: number;
   codeData: RefObject<QRCodeStyling | null>;
   setExportSize: (size: number) => void;
-
+  visible:Boolean;
 }) {
 
   const selectedType = props.typeOptions[props.typeIndex];
   const [margin, setMargin] = useState(10);
   const [exportSize, setExportSize] = useState(300);
-  const [formData, setFormData] = useState<FormDataMap>({ ...DEFAULTS });
+  const [formData, setFormData] = useState<FormDataMap>({ ...DEFAULTS_DATA });
 
   const updateField = <T extends QrType, K extends keyof FormDataMap[T]>(
     type: T,
@@ -45,7 +45,7 @@ export default function DataForm(props: {
   }, [margin]);
 
   return (
-    <div className="form">
+    <div className="form" style={{ display: props.visible ? 'flex' : 'none' }}>
 
       {selectedType === "URL" ? (
         <Input

@@ -306,6 +306,7 @@ aside .row-select{
 
 .form-input-control {
   box-sizing: border-box;
+  position: relative;
   width: 100%;
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 0.5rem;
@@ -437,7 +438,7 @@ input[type="range"]::-moz-range-thumb {
 }
 
 input[type="range"]:focus::-moz-range-thumb{
-  outline: 1px solid #a8a8a8;
+  outline: 1px solid rgba(255, 216, 78, 0.85) ;
   outline-offset: 0.125rem;
 }
 
@@ -466,6 +467,7 @@ input[type="range"]:focus::-moz-range-thumb{
 .form-input-color-frame .form-input-color-opened{
   flex-direction: column;
   align-items: stretch;
+  padding-top:2.3rem;
 }
 
 .form-input-color-preview{
@@ -474,6 +476,12 @@ input[type="range"]:focus::-moz-range-thumb{
   aspect-ratio: 1;
   border-radius: 0.25rem;
   border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.form-input-color-opened .x{
+  position: absolute;
+  right:2%;
+  top:4%;
 }
 
 .form-input .input-value{

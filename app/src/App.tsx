@@ -89,7 +89,8 @@ function App() {
             selected={currentView}
             onSelectedChange={setCurrentView}
           />
-          {currentView === 0 ? <DataForm typeOptions={typeOptions} typeIndex={typeIndex} codeData={qrCodeRef} setExportSize={setExportSize} /> : <StyleForm />}
+          <DataForm visible={currentView === 0} typeOptions={typeOptions} typeIndex={typeIndex} codeData={qrCodeRef} setExportSize={setExportSize} />
+          <StyleForm visible={currentView === 1} codeData={qrCodeRef}/>
         </div>
         <aside>
           <div id="code" ref={codeRef}></div>
