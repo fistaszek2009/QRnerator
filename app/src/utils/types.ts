@@ -20,6 +20,21 @@ export type FormDataMap = {
 
 export type QrType = keyof FormDataMap;
 
+export type QrColor = {
+    color?: string,
+    gradient1?: string,
+    gradient2?: string,
+    gradientType?: string,
+    gradientRotation?: number
+}
+
+export type QrColorStyles = {
+  dotsOptions: QrColor,
+  cornersSquareOptions: QrColor,
+  cornersDotOptions: QrColor,
+  backgroundOptions: QrColor,
+}
+
 export const DEFAULTS_DATA: FormDataMap = {
   URL:   { url: "" },
   Text:  { text: "" },
@@ -33,18 +48,31 @@ export const DEFAULTS_DATA: FormDataMap = {
 export const DEFAULTS_STYLE: Options = {
     dotsOptions: {
             type: 'square',
-            color: '#fad038',
-            gradient: undefined,
+            //color: '#000000',
             roundSize: false,
         },
         cornersSquareOptions: {
             type: 'square',
-            color: '#fad038',
-            gradient: undefined,
+            //color: '#fad038',
         },
         cornersDotOptions: {
             type: 'square',
-            color: '#fad038',
-            gradient: undefined,
+            //color: '#fad038',
+        }
+};
+
+export const DEFAULTS_COLORS: QrColorStyles = {
+        dotsOptions: {
+              color: '#000000',
+              gradientType: 'linear'
+        },
+        cornersSquareOptions: {
+          gradientType: 'linear'
+        },
+        cornersDotOptions: {
+          gradientType: 'linear'
+        },
+        backgroundOptions: {
+          gradientType: 'linear'
         }
 };

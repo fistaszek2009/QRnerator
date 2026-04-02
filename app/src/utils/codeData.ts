@@ -66,6 +66,7 @@ export function encodeQrData(type: QrType, data: FormDataMap[QrType]) {
         "BEGIN:VCARD",
         "VERSION:3.0",
         `N:${names.slice(0,names.length-1).join(' ')};${names[names.length-1] || ''};;;`,
+        `FN:${names.join(' ')}`,
         vcardData.company.trim() ? `ORG:${vcardData.company.trim()}` : "",
         vcardData.title.trim() ? `TITLE:${vcardData.title.trim()}` : "",
         vcardData.phone.trim() ? `TEL:${vcardData.phone.trim()}` : "",

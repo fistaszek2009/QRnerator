@@ -33,7 +33,7 @@ function App() {
       dotsOptions: {
         type: "square",
         roundSize: false,
-        color: "#fad038",
+        color: "#000000",
       },
     });
 
@@ -76,8 +76,8 @@ function App() {
 
   return (
     <>
+      <h1 className='main-title'>QRnerator</h1>
       <main>
-        <h1>QRnerator</h1>
         <WheelSelect
           options={typeOptions}
           selected={typeIndex}
@@ -95,7 +95,7 @@ function App() {
         <aside>
           <div id="code" ref={codeRef}></div>
           <RowSelect
-            options={["PNG", "JPG", "SVG", "RAW"]}
+            options={["PNG", "JPEG", "SVG", "BITMAP"]}
             selected={exportFormatIndex}
             onSelectedChange={setExportFormatIndex}
             label="Download file type"

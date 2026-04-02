@@ -191,14 +191,14 @@ main::before{
   background-color: rgb(19, 19, 19);
 }
 
-main > h1 {
+.main-title {
   font-family: "Inter";
   font-weight: 900;
   letter-spacing: 0.18rem;
   font-size: clamp(4.35em, 5vw, 8.4em);
-  position: absolute;
-  top: -0.82em;
-  left: 7%;
+  position: relative;
+  /* top: -1.4em; */
+  left: 10%;
 }
 
 aside #code{
@@ -230,6 +230,16 @@ aside #code svg {
   border: 2px solid rgb(139, 182, 139);
   cursor:pointer;
   box-shadow: 0 0 7px green;
+  transition: all ease-in-out 250ms;
+}
+
+#download:hover{
+  border-color:#fad038;
+  box-shadow: 0 0 7px orange;
+}
+
+#download:active{
+  transform: scale(0.9);
 }
 
 aside .row-select{
@@ -467,21 +477,30 @@ input[type="range"]:focus::-moz-range-thumb{
 .form-input-color-frame .form-input-color-opened{
   flex-direction: column;
   align-items: stretch;
-  padding-top:2.3rem;
+  padding-top:3.5rem;
 }
 
 .form-input-color-preview{
   display: block;
-  width: 20px;
+  position: relative;
+  height: 20px;
   aspect-ratio: 1;
   border-radius: 0.25rem;
   border: 1px solid rgba(255, 255, 255, 0.3);
+  overflow: hidden;
+}
+
+.form-input-color-opened .form-input-color-preview{
+  width:calc(100% - 4 * 20px);
+  position: absolute;
+  left:3%;
+  top:1rem;
 }
 
 .form-input-color-opened .x{
   position: absolute;
-  right:2%;
-  top:4%;
+  right:1.5%;
+  top:1rem;
 }
 
 .form-input .input-value{
