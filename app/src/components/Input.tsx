@@ -8,15 +8,15 @@ type BaseProps = {
 
 type InputFieldProps = BaseProps &
   InputHTMLAttributes<HTMLInputElement> & {
-  as?: "input";
-  inputType?: InputHTMLAttributes<HTMLInputElement>["type"];
-  value?: string;
-  placeholder?: string;
-  checked?: boolean;
-  unit?: string;
-  options?: never;
-  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
-};
+    as?: "input";
+    inputtype?: InputHTMLAttributes<HTMLInputElement>["type"];
+    value?: string;
+    placeholder?: string;
+    checked?: boolean;
+    unit?: string;
+    options?: never;
+    onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  };
 
 type TextareaFieldProps = BaseProps & {
   as: "textarea";
@@ -46,9 +46,10 @@ export default function Input({
   className = "",
   ...props
 }: FieldProps) {
-  
-  const isCheckbox = as === "input" && "inputType" in props && props.inputType === "checkbox";
-  const isRange = as === "input" && "inputType" in props && props.inputType === "range";
+  const isCheckbox =
+    as === "input" && "inputtype" in props && props.inputtype === "checkbox";
+  const isRange =
+    as === "input" && "inputtype" in props && props.inputtype === "range";
 
   const fieldClassName = `form-input${isCheckbox ? " is-checkbox" : ""}${className ? ` ${className}` : ""}`;
 
@@ -89,9 +90,8 @@ export default function Input({
     return (
       <input
         className={`form-input-control${isCheckbox ? " form-input-checkbox" : ""}`}
-        type={inputProps.inputType}
+        type={inputProps.inputtype}
         {...inputProps}
-        
       />
     );
   };
@@ -111,7 +111,14 @@ export default function Input({
   if (isRange) {
     return (
       <div className={fieldClassName}>
-        {label ? <label className="form-input-label">{label}: <span className='input-value'>{props.value} {props.unit || ''}</span></label> : null}
+        {label ? (
+          <label className="form-input-label">
+            {label}:{" "}
+            <span className="input-value">
+              {props.value} {props.unit || ""}
+            </span>
+          </label>
+        ) : null}
         {renderField()}
         {hint ? <p className="form-input-hint">{hint}</p> : null}
       </div>

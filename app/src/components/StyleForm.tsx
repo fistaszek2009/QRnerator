@@ -25,12 +25,12 @@ export default function StyleForm(props:{
 ) => {
   setStyleOptions(prev => ({
     ...prev,
-    [type]: { value }
+    [type]: { ...prev[type], [field]: value }
   }));};
 
   useEffect(() => {
     props.codeData.current?.update({...styleOptions});
-    console.log(styleOptions)
+    console.log('Updated style options:', styleOptions);
   }, [styleOptions, props.codeData]);
 
   return (
@@ -70,7 +70,7 @@ export default function StyleForm(props:{
 
       <div className="form-section">
         <h3>Background</h3>
-        {/* <ColorInput label="Color" initialValue="#ffffff" /> */}
+        <ColorInput label="Color"  field='backgroundOptions' initialValue={'#ffffff'} options={styleOptions} onChange={(field:string,value:unknown)=>{updateField('backgroundOptions',field,value)}}/>  
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import type { GradientType } from "qr-code-styling";
+import type { GradientType, Options } from "qr-code-styling";
 import type { QrColorStyles } from "../utils/types";
 import type { Property } from 'csstype';
 
@@ -65,7 +65,7 @@ export function decodeQrColorToCSS(dotsType: 'dotsOptions' | 'cornersSquareOptio
 
             let type = code[dotsType]!.gradientType || 'linear';
             let text = type + '-gradient('
-            text += (type == 'radial' ? 'circle' : code[dotsType]!.gradientRotation ? code[dotsType]!.gradientRotation + 'deg' : '0deg') + ','
+            text += (type == 'radial' ? 'circle' : code[dotsType]!.gradientRotation ? (code[dotsType]!.gradientRotation + 90) + 'deg' : '90deg') + ','
 
             text += code[dotsType]?.gradient1 + ' 0%, ';
             text += code[dotsType]?.gradient2 + ' 100%)';
@@ -78,6 +78,50 @@ export function decodeQrColorToCSS(dotsType: 'dotsOptions' | 'cornersSquareOptio
 }
 
 
-export function encodeQrColor(colorType: number, dotsType: 'dotsOptions' | 'cornersSquareOptions' | 'cornersDotOptions' | 'backgroundOptions', code: QrColorStyles){
-    
+export function encodeQrColor(dotsType: 'dotsOptions' | 'cornersSquareOptions' | 'cornersDotOptions' | 'backgroundOptions', colorType: number, code: QrColorStyles): Options['dotsOptions']{
+    const options: Options['dotsOptions'] = {
+        color: code[dotsType]?.color,
+        gradient: {
+            type: (code[dotsType]?.gradientType || 'linear') as GradientType,
+            rotation: code[dotsType]?.gradientRotation,
+            colorStops: [
+                {offset:0, color:code[dotsType]?.gradient1 || '#000'},
+                {offset:1, color:code[dotsType]?.gradient2 || '#000'},
+            ]
+        }
+    }
+
+    switch (colorType){
+        case 0:
+            
+            options.gradient = undefined;
+
+            if(dotsType == 'backgroundOptions'){
+                options.color = '#fff';
+                return options
+            }
+
+            if(dotsType == 'cornersSquareOptions' || dotsType == 'cornersDotOptions'){
+                options.color = undefined
+                return options;
+            }
+
+            options.color = '#000000'
+            return options;
+        
+        case 1:
+            if(!code[dotsType]?.color) return encodeQrColor(dotsType,0,code);
+            options.gradient = undefined;
+            return options
+
+        case 2:
+            if(!code[dotsType]?.gradient1 || !code[dotsType]?.gradient2) return encodeQrColor(dotsType, 1, code);
+            options.gradient!.rotation = (options.gradient?.rotation || 0)* (Math.PI/180)
+            //options.color = undefined
+
+            return options;
+            
+        default:
+            return options;
+    }
 }

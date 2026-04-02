@@ -73,6 +73,7 @@ export const DEFAULTS_COLORS: QrColorStyles = {
           gradientType: 'linear'
         },
         backgroundOptions: {
+          color: '#ffffff',
           gradientType: 'linear'
         }
 };
