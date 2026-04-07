@@ -24,6 +24,7 @@ type Props = {
     | "backgroundOptions";
   initialValue?: string;
   placeholder?: string;
+  containsTransparent?: boolean;
   options: Options;
   onChange: (field: string, value: unknown) => void;
 };
@@ -83,15 +84,17 @@ export default function ColorInput({
           className="form-input-color-preview"
           style={{
             background:
-               type !== 0
-                 ? decodeQrColorToCSS(props.field, type, localStyles)
-                : globalPreviewColor || "transparent",
+            type == 3 && props.containsTransparent
+            ? 'transparent'
+            : type !== 0
+            ? decodeQrColorToCSS(props.field, type, localStyles)
+            : globalPreviewColor || "transparent",
           }}
         ></span>
         {!opened ? (
           <p>
-            {type === 0 ? "Global" : type === 1 ? "Color" : "Gradient"}{" "}
-            {type > 0
+            {["Global", "Single", "Gradient", "Transparent"][type]}{" "}
+            {type > 0 && type < 3
               ? ": " + decodeQrColorToText(props.field, type, localStyles)
               : null}
           </p>
@@ -104,7 +107,7 @@ export default function ColorInput({
               onClick={() => setOpened((prev) => !prev)}
             />
             <RowSelect
-              options={["Global", "Single", "Gradient"]}
+              options={["Global", "Single", "Gradient", props.containsTransparent ? "Transparent" : null].filter(Boolean) as string[]}
               selected={type}
               onSelectedChange={setType}
             />

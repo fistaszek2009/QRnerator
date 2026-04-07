@@ -167,7 +167,10 @@ export function encodeQrColor(dotsType: 'dotsOptions' | 'cornersSquareOptions' |
             //options.color = undefined
 
             return options;
-            
+        case 3:
+            options.color = 'transparent'
+            options.gradient = undefined
+            return options
         default:
             return options;
     }

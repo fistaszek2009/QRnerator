@@ -107,6 +107,7 @@ export default function StyleForm(props:{
           field="backgroundOptions"
           initialValue={"#ffffff"}
           options={styleOptions}
+          containsTransparent={true}
           onChange={(field: string, value: unknown) => {
             updateField("backgroundOptions", field, value);
           }}
