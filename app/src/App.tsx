@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import "./App.css";
+import "./styles/App.css";
 import QRCodeStyling, { type FileExtension } from "qr-code-styling";
 import qrcode from 'qrcode-generator';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,6 +10,7 @@ import RowSelect from "./components/RowSelect";
 import DataForm from "./components/DataForm";
 import StyleForm from "./components/StyleForm";
 import type { QrType } from "./utils/types";
+import IconForm from "./components/IconForm";
 
 const typeOptions: QrType[] = ["URL", "Text", "Email", "Phone", "SMS", "vCard", "Wi-Fi"];
 function App() {
@@ -25,12 +26,14 @@ function App() {
       return;
     }
 
+    const baseSize = 1000;
+
     qrCodeRef.current = new QRCodeStyling({
       data: "https://github.com/fistaszek2009",
       type: "svg",
-      width: 300,
-      height: 300,
-      margin: 300 * (25 / 100) / 2,
+      width: baseSize,
+      height: baseSize,
+      margin: baseSize * (25 / 100) / 2,
       qrOptions: {
         typeNumber: 0,
       },
@@ -48,38 +51,36 @@ function App() {
 
     qrCodeRef.current.append(codeRef.current);
 
-    let frameId = 0;
-    let lastSize = 0;
+    // let frameId = 0;
+    // let lastSize = 0;
 
-    const updateQrSize = (nextSize: number) => {
-      const roundedSize = Math.max(1, Math.round(nextSize));
+    // const updateQrSize = (nextSize: number) => {
+    //   const roundedSize = Math.max(1, Math.round(nextSize));
 
-      if (!qrCodeRef.current || roundedSize === lastSize) {
-        return;
-      }
+    //   if (!qrCodeRef.current || roundedSize === lastSize) {
+    //     return;
+    //   }
 
-      lastSize = roundedSize;
-      qrCodeRef.current.update({
-        width: roundedSize,
-        height: roundedSize,
-        margin: roundedSize * (qrCodeRef.current._options.margin / qrCodeRef.current._options.width),
-      });
-    };
+    //   lastSize = roundedSize;
+    //   qrCodeRef.current.update({
+    //     margin: roundedSize * (qrCodeRef.current._options.margin / qrCodeRef.current._options.width),
+    //   });
+    // };
 
-    const observer = new ResizeObserver(([entry]) => {
-      const box = entry.contentRect;
-      const nextSize = Math.min(box.width, box.height);
+    // const observer = new ResizeObserver(([entry]) => {
+    //   const box = entry.contentRect;
+    //   const nextSize = Math.min(box.width, box.height);
 
-      cancelAnimationFrame(frameId);
-      frameId = requestAnimationFrame(() => updateQrSize(nextSize));
-    });
+    //   cancelAnimationFrame(frameId);
+    //   frameId = requestAnimationFrame(() => updateQrSize(nextSize));
+    // });
 
-    observer.observe(codeRef.current);
-    updateQrSize(codeRef.current.getBoundingClientRect().width);
+    // observer.observe(codeRef.current);
+    // updateQrSize(codeRef.current.getBoundingClientRect().width);
 
     return () => {
-      cancelAnimationFrame(frameId);
-      observer.disconnect();
+      //cancelAnimationFrame(frameId);
+      //observer.disconnect();
       codeRef.current?.replaceChildren();
     };
   }, []);
@@ -95,12 +96,13 @@ function App() {
         />
         <div id="data">
           <RowSelect
-            options={["Data","Style"]}
+            options={["Data","Style","Icon"]}
             selected={currentView}
             onSelectedChange={setCurrentView}
           />
           <DataForm visible={currentView === 0} typeOptions={typeOptions} typeIndex={typeIndex} codeData={qrCodeRef} setExportSize={setExportSize} />
           <StyleForm visible={currentView === 1} codeData={qrCodeRef}/>
+          <IconForm visible={currentView === 2} codeData={qrCodeRef}/>
         </div>
         <aside>
           <div id="code" ref={codeRef}></div>

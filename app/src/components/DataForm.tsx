@@ -239,14 +239,6 @@ export default function DataForm(props: {
         max={1000}
         unit="px"
       />
-
-      <Input inputtype="file" label="Middle Icon" 
-        onChange={(e) => {
-           props.codeData.current?.update({
-            image: e.target.files && URL.createObjectURL(e.target.files[0]) || undefined,
-          });
-          }} 
-        />
     </div>
   );
 }

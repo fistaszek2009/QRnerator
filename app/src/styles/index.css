@@ -20,32 +20,32 @@
 
 @font-face {
     font-family: "Inter";
-    src: url("./assets/fonts/Inter/InterVariable.ttf");
+    src: url("../assets/fonts/Inter/InterVariable.ttf");
 }
 
 @font-face {
     font-family: "Young Serif";
-    src: url("./assets/fonts/Young-Serif/YoungSerif-Regular.ttf");
+    src: url("../assets/fonts/Young-Serif/YoungSerif-Regular.ttf");
 }
 
 @font-face {
     font-family: "Office Code Pro";
-    src: url("./assets/fonts/Office-Code-Pro/officecodepro-regular.otf");
+    src: url("../assets/fonts/Office-Code-Pro/officecodepro-regular.otf");
 }
 
 @font-face {
     font-family: "Office Code Pro Medium";
-    src: url("./assets/fonts/Office-Code-Pro/officecodepro-medium.otf");
+    src: url("../assets/fonts/Office-Code-Pro/officecodepro-medium.otf");
 }
 
 @font-face {
     font-family: "Office Code Pro Medium Italic";
-    src: url("./assets/fonts/Office-Code-Pro/officecodepro-mediumitalic.otf");
+    src: url("../assets/fonts/Office-Code-Pro/officecodepro-mediumitalic.otf");
 }
 
 @font-face {
     font-family: "Office Code Pro Bold";
-    src: url("./assets/fonts/Office-Code-Pro/officecodepro-bold.otf");
+    src: url("../assets/fonts/Office-Code-Pro/officecodepro-bold.otf");
 }
 
 @media (prefers-color-scheme: dark) {

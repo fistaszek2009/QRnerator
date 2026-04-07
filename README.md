@@ -1,5 +1,2 @@
 # qr-code-generator
-
-# TODOs
-- [ ] Middle icon
-- [ ] responsive
+<img width='80' alt='logo' src='./app/src/assets/QRnerator-Icon.png'>

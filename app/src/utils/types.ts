@@ -35,6 +35,13 @@ export type QrColorStyles = {
   backgroundOptions: QrColor,
 }
 
+export type FormIconData = {
+  iconData: string | undefined;
+  margin: number | undefined;
+  imageSize: number | undefined;
+  hideBackgroundDots: boolean;
+}
+
 export const DEFAULTS_DATA: FormDataMap = {
   URL:   { url: "" },
   Text:  { text: "" },
@@ -74,3 +81,10 @@ export const DEFAULTS_COLORS: QrColorStyles = {
           gradientType: 'linear'
         }
 };
+
+export const DEFAULTS_ICON: FormIconData = {
+  iconData:undefined,
+  margin: 5,
+  imageSize: 0.4,
+  hideBackgroundDots: true
+}
