@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import QRCodeStyling, { type FileExtension } from "qr-code-styling";
+import qrcode from 'qrcode-generator';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Background from "./components/Background";
@@ -30,10 +31,18 @@ function App() {
       width: 300,
       height: 300,
       margin: 300 * (25 / 100) / 2,
+      qrOptions: {
+        typeNumber: 0,
+      },
+      imageOptions: {
+        crossOrigin: "anonymous",
+        imageSize: 0.4,
+        margin: 5,
+      },
       dotsOptions: {
         type: "square",
         roundSize: false,
-        color: "#000000",
+        color: "#ffd84e",
       },
     });
 
@@ -101,11 +110,37 @@ function App() {
             label="Download file type"
           />
           <button id="download" onClick={() => {
+            if(exportFormatIndex === 3) {
+              const qr = qrcode(qrCodeRef.current?._options.qrOptions.typeNumber || 0, qrCodeRef.current?._options.qrOptions.errorCorrectionLevel || "L");
+              qr.addData(qrCodeRef.current?._options.data || "");
+              qr.make();
+            
+              const count = qr.getModuleCount();
+              const matrix = [];
+
+              for(let r = 0; r < count; r++) {
+                const row = [];
+                for(let c = 0; c < count; c++) {
+                  row.push(qr.isDark(r, c) ? 1 : 0);
+                }
+                matrix.push(row);
+              }
+            
+              const csvContent = `data:text/csv;charset=utf-8,[ ${matrix
+                .map((e) => e.join(", "))
+                .join("\n")} ]`;
+              const encodedUri = encodeURI(csvContent);
+              const link = document.createElement("a");
+              link.download = "qr-code.txt";
+              link.href = encodedUri;
+              link.click()
+              return;
+            }
             const downloadCode = new QRCodeStyling(qrCodeRef.current?._options);
             downloadCode.update({width: exportSize, height: exportSize});
             downloadCode.update({ margin: exportSize * (qrCodeRef.current!._options.margin / qrCodeRef.current!._options.width) });
 
-            const formats: FileExtension[] = ["png", "jpeg", "svg", 'svg'];
+            const formats: FileExtension[] = ["png", "jpeg", "svg"];
             const format = formats[exportFormatIndex] ?? "png";
 
             downloadCode.download({ name: "qr-code", extension: format});

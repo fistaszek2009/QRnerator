@@ -6,6 +6,7 @@ import Input from "./Input";
 import type QRCodeStyling from "qr-code-styling";
 import type { Options } from "qr-code-styling";
 import { DEFAULTS_STYLE } from "../utils/types";
+import { decodeQrCodeStylingToCSS, decodeQrColorToCSS } from "../utils/codeColor";
 
 export default function StyleForm(props:{
   codeData: RefObject<QRCodeStyling | null>;
@@ -30,7 +31,6 @@ export default function StyleForm(props:{
 
   useEffect(() => {
     props.codeData.current?.update({...styleOptions});
-    console.log('Updated style options:', styleOptions);
   }, [styleOptions, props.codeData]);
 
   return (
@@ -48,6 +48,7 @@ export default function StyleForm(props:{
           label="Color"
           field="dotsOptions"
           options={styleOptions}
+          initialValue="#ffd84e"
           onChange={(field: string, value: unknown) => {
             updateField("dotsOptions", field, value);
           }}
@@ -61,6 +62,7 @@ export default function StyleForm(props:{
           as="select"
           value={styleOptions.cornersSquareOptions?.type || "square"}
           options={cornersOptions}
+      
           onChange={(e) =>
             updateField("cornersSquareOptions", "type", e.target.value)
           }
@@ -69,6 +71,7 @@ export default function StyleForm(props:{
           label="Color"
           field="cornersSquareOptions"
           options={styleOptions}
+          initialValue={decodeQrCodeStylingToCSS('cornersSquareOptions', 0, styleOptions)}
           onChange={(field: string, value: unknown) => {
             updateField("cornersSquareOptions", field, value);
           }}
@@ -90,6 +93,7 @@ export default function StyleForm(props:{
           label="Color"
           field="cornersDotOptions"
           options={styleOptions}
+          initialValue={decodeQrCodeStylingToCSS('cornersDotOptions', 0, styleOptions)}
           onChange={(field: string, value: unknown) => {
             updateField("cornersDotOptions", field, value);
           }}

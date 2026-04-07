@@ -48,22 +48,19 @@ export const DEFAULTS_DATA: FormDataMap = {
 export const DEFAULTS_STYLE: Options = {
     dotsOptions: {
             type: 'square',
-            //color: '#000000',
             roundSize: false,
         },
         cornersSquareOptions: {
             type: 'square',
-            //color: '#fad038',
         },
         cornersDotOptions: {
             type: 'square',
-            //color: '#fad038',
         }
 };
 
 export const DEFAULTS_COLORS: QrColorStyles = {
         dotsOptions: {
-              color: '#000000',
+              color: '#ffd84e',
               gradientType: 'linear'
         },
         cornersSquareOptions: {

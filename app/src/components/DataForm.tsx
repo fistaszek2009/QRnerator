@@ -240,7 +240,13 @@ export default function DataForm(props: {
         unit="px"
       />
 
-      <Input inputtype="file" label="Middle Icon" onChange={() => undefined} />
+      <Input inputtype="file" label="Middle Icon" 
+        onChange={(e) => {
+           props.codeData.current?.update({
+            image: e.target.files && URL.createObjectURL(e.target.files[0]) || undefined,
+          });
+          }} 
+        />
     </div>
   );
 }

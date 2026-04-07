@@ -60,6 +60,11 @@ export default function ColorInput({
   };
 
   const fieldClassName = `form-input form-input-color-frame ${className ? ` ${className}` : ""}`;
+  const [globalPreviewColor, setGlobalPreviewColor] = useState(initialValue);
+
+  useEffect(() => {
+    setGlobalPreviewColor(initialValue);
+  }, [initialValue]);
 
   useEffect(() => {
     const colorStyles = encodeQrColor(props.field, type, localStyles);
@@ -78,10 +83,9 @@ export default function ColorInput({
           className="form-input-color-preview"
           style={{
             background:
-            decodeQrColorToCSS(props.field, type, localStyles)
-              // type !== 0
-              //   ? decodeQrColorToCSS(props.field, type, localStyles)
-              //  : initialValue || "transparent",
+               type !== 0
+                 ? decodeQrColorToCSS(props.field, type, localStyles)
+                : globalPreviewColor || "transparent",
           }}
         ></span>
         {!opened ? (

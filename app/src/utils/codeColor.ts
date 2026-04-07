@@ -1,4 +1,4 @@
-import type { GradientType, Options } from "qr-code-styling";
+import type { GradientType, Options} from "qr-code-styling";
 import type { QrColorStyles } from "../utils/types";
 import type { Property } from 'csstype';
 
@@ -20,7 +20,7 @@ export function decodeQrColorToText(dotsType:'dotsOptions' | 'cornersSquareOptio
                 else return decodeQrColorToText('cornersSquareOptions', 1, code);
             }
 
-            return '#000000';
+            return '#ffd84e';
         
         case 1:
              if(!code[dotsType]?.color) return decodeQrColorToText(dotsType,0,code);
@@ -58,7 +58,7 @@ export function decodeQrColorToCSS(dotsType: 'dotsOptions' | 'cornersSquareOptio
             if (code['dotsOptions']?.color)
                 return decodeQrColorToCSS('dotsOptions', 1, code);
 
-            return '#000000';
+            return '#ffd84e';
         
         case 1:
              if(!code[dotsType]?.color) return decodeQrColorToCSS(dotsType,0,code);
@@ -81,6 +81,49 @@ export function decodeQrColorToCSS(dotsType: 'dotsOptions' | 'cornersSquareOptio
     }
 }
 
+export function decodeQrCodeStylingToCSS(dotsType: 'dotsOptions' | 'cornersSquareOptions' | 'cornersDotOptions' | 'backgroundOptions', colorType: number, code: Options | null){
+    if(!code){
+        return undefined
+    }
+    switch (colorType){
+        case 0:
+            if (dotsType === 'backgroundOptions') return '#ffffff';
+
+            if (dotsType === 'cornersDotOptions') {
+                return decodeQrCodeStylingToCSS('cornersSquareOptions', 2, code);
+            }
+
+            if (dotsType === 'cornersSquareOptions') {
+                return decodeQrCodeStylingToCSS('dotsOptions', 2, code);
+            }
+
+            if (code.dotsOptions?.gradient)
+                return decodeQrCodeStylingToCSS('dotsOptions', 2, code);
+            if (code.dotsOptions?.color)
+                return decodeQrCodeStylingToCSS('dotsOptions', 1, code);
+
+            return '#ffd84e';
+        
+        case 1:
+            if(!code[dotsType]?.color) return decodeQrCodeStylingToCSS(dotsType,0,code);
+            return code[dotsType]?.color || ''
+
+        case 2:
+            if(!code[dotsType]?.gradient) return decodeQrCodeStylingToCSS(dotsType,1,code);
+
+            let type = code[dotsType].gradient.type || 'linear';
+            let text = type + '-gradient('
+            text += (type == 'radial' ? 'circle' : code[dotsType]!.gradient.rotation ? (code[dotsType]!.gradient.rotation  + 90) + 'deg' : '90deg') + ','
+
+            text += code[dotsType].gradient.colorStops[0].color + ' 0%, ';
+            text += code[dotsType].gradient.colorStops[1].color + ' 100%)';
+
+            return text;
+
+        default:
+            return '';
+    }
+}
 
 export function encodeQrColor(dotsType: 'dotsOptions' | 'cornersSquareOptions' | 'cornersDotOptions' | 'backgroundOptions', colorType: number, code: QrColorStyles): Options['dotsOptions']{
     const options: Options['dotsOptions'] = {
@@ -89,8 +132,8 @@ export function encodeQrColor(dotsType: 'dotsOptions' | 'cornersSquareOptions' |
             type: (code[dotsType]?.gradientType || 'linear') as GradientType,
             rotation: code[dotsType]?.gradientRotation,
             colorStops: [
-                {offset:0, color:code[dotsType]?.gradient1 || '#000'},
-                {offset:1, color:code[dotsType]?.gradient2 || '#000'},
+                {offset:0, color:code[dotsType]?.gradient1 || '#fff'},
+                {offset:1, color:code[dotsType]?.gradient2 || '#fff'},
             ]
         }
     }
@@ -110,7 +153,7 @@ export function encodeQrColor(dotsType: 'dotsOptions' | 'cornersSquareOptions' |
                 return options;
             }
 
-            options.color = '#000000'
+            options.color = '#ffd84e'
             return options;
         
         case 1:
