@@ -62,6 +62,7 @@ function App() {
       qrCodeRef.current.update({
         width: roundedSize,
         height: roundedSize,
+        margin: roundedSize * (qrCodeRef.current._options.margin / qrCodeRef.current._options.width),
       });
     };
 
@@ -126,9 +127,9 @@ function App() {
                 matrix.push(row);
               }
             
-              const csvContent = `data:text/csv;charset=utf-8,[ ${matrix
-                .map((e) => e.join(", "))
-                .join("\n")} ]`;
+              const csvContent = `data:text/csv;charset=utf-8,[\n${matrix
+                .map((e) => '[ ' + e.join(", ") + ' ]')
+                .join("\n")}\n]`;
               const encodedUri = encodeURI(csvContent);
               const link = document.createElement("a");
               link.download = "qr-code.txt";

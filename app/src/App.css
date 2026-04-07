@@ -17,41 +17,125 @@ main {
 @media screen and (max-width: 1500px) {
   aside .form-input-label{
     display: none;
+  }}
+
+@media screen and (max-width: 1400px) {
+  main #data .row-select{
+    font-size: 12px;
   }
 }
 
-@media screen and (max-width: 500px) {
-  main{
+
+@media screen and (max-width: 600px) {
+  main {
     flex-direction: column;
-  }
-  main::before{
-    border-radius: 50% 50% 0 0 !important;
-    width:100% !important;
-    aspect-ratio: 1;
+    width: clamp(300px, 90vw, 575px) !important;
+    min-width: 300px;
+    height: auto !important;
+    margin: 2em 0;
   }
 
-  nav{
-    height:50% !important;
+  main::before {
+    border-radius: 50% 50% 0 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1 !important; 
+  }
+
+  .main-title {
+    text-align: center;
+    left: 0 !important;
+    font-size: clamp(2.5em, 10vw, 4.5em);
+    margin-top: 0.75em;
+  }
+
+  .wheel-nav {
+    height: auto !important;
+    width: 100% !important;
+    aspect-ratio: 2 / 1 !important;
+    position: relative;
+    transform: rotate(90deg) translateX(30%);
+  }
+
+  .wheel-option {
+    --radius:100% !important;
   }
 
   .wheel{
     width:100% !important;
-    height:200% !important;
     aspect-ratio: 1 !important;
-    transform: rotate(90deg);
+  } 
+
+  aside {
+    height: auto !important;
+    width: 100% !important;
+    aspect-ratio: 4/5 !important;
+    border-radius: 0 0 0.5rem 0.5rem !important;
+    border-left: 2px solid grey !important;
+    border-top: none !important;
+    gap: 0.75rem;
   }
 
-  .wheel::before{
-    top: 50% !important;
-    left: 13% !important;
-    transform: translate(0,-50%);
+   aside .form-input-label{
+    display: initial !important;
   }
 
-  .wheel-option{
-    --radius:85% !important;
+  aside #code {
+  width: 70% !important;
+  height: auto !important;
+  aspect-ratio: 1 / 1 !important;
+  margin: 0 auto;
+  border-radius: 0.4rem;
+  overflow: hidden; 
+  }
+
+  aside #code canvas,
+  aside #code svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  aside .row-select {
+    width: 100%;
+  }
+
+  aside .form-input-label {
+    display: none;
+  }
+
+  main #data {
+    width: 100%;
+    aspect-ratio:unset !important;
+    height: fit-content !important;
+    aspect-ratio: initial;
+    max-height: 70vh;
+    padding: 0.6rem 1rem;
+  }
+
+  .form {
+    gap: 0.65rem;
+    padding: 0.6rem 0;
+  }
+
+  .form-section h3 {
+    font-size: 1.2em;
+  }
+
+  .input-section {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  #shadow {
+    display: none !important;
+  }
+
+  #download{
+    width:33% !important;
+    font-size: clamp(1em, 3vw, 1.5em) !important;
   }
 }
-
 aside {
   display:flex;
   flex-direction: column;
@@ -97,7 +181,7 @@ nav {
 }
 
 .wheel {
-  position: absolute;
+  position: relative;
   inset: 0;
   width: 200%;
   height: 100%;
@@ -218,14 +302,16 @@ aside #code svg {
   border-radius: 0.4rem;
   display: block;
   width: 100%;
+  max-width: 100%;
   height: 100%;
+  max-height: 100%;
 }
 
 #download{
   font-family: 'Inter', monospace;
   font-weight: 600;
   font-size: clamp(0.9em, 1vw, 1.75em);
-  background-color: rgb(75, 143, 75);
+  background-color: #dea710;
   padding: 0.4em 1.5em;
   width:50%;
   display: flex;
@@ -233,15 +319,17 @@ aside #code svg {
   align-items: center;
   gap:5px;
   border-radius: 0.3rem;
-  border: 2px solid rgb(139, 182, 139);
+  border: 2px solid rgb(202, 201, 138);
   cursor:pointer;
-  box-shadow: 0 0 7px green;
+  box-shadow: 0 0 7px #fad038;
   transition: all ease-in-out 250ms;
 }
 
 #download:hover{
-  border-color:#fad038;
-  box-shadow: 0 0 7px orange;
+  color: rgb(100, 90, 77);
+  background-color: #fad038;
+  border-color:#ffe174;
+  box-shadow: 0 0 7.5px orange;
 }
 
 #download:active{
