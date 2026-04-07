@@ -43,16 +43,20 @@ export function decodeQrColorToText(dotsType:'dotsOptions' | 'cornersSquareOptio
 export function decodeQrColorToCSS(dotsType: 'dotsOptions' | 'cornersSquareOptions' | 'cornersDotOptions' | 'backgroundOptions', colorType: number, code: QrColorStyles) : Property.BackgroundColor {
     switch (colorType){
         case 0:
-            if(dotsType == 'backgroundOptions') return '#ffffff'
+            if (dotsType === 'backgroundOptions') return '#ffffff';
 
-            if(dotsType == 'cornersSquareOptions'){
-                if(code['dotsOptions'].gradient1 && code['dotsOptions'].gradient2) return decodeQrColorToCSS('dotsOptions', 2, code);
-                else if(code['dotsOptions']?.color) return decodeQrColorToCSS('dotsOptions', 1, code);
+            if (dotsType === 'cornersDotOptions') {
+                return decodeQrColorToCSS('cornersSquareOptions', 2, code);
             }
-            if(dotsType == 'cornersDotOptions'){
-                if(code['cornersSquareOptions'].gradient1 && code['cornersSquareOptions'].gradient2) return decodeQrColorToCSS('cornersSquareOptions', 2, code);
-                else if(code['cornersSquareOptions']?.color) return decodeQrColorToCSS('cornersSquareOptions', 1, code);
+
+            if (dotsType === 'cornersSquareOptions') {
+                return decodeQrColorToCSS('dotsOptions', 2, code);
             }
+
+            if (code['dotsOptions']?.gradient1 && code['dotsOptions']?.gradient2)
+                return decodeQrColorToCSS('dotsOptions', 2, code);
+            if (code['dotsOptions']?.color)
+                return decodeQrColorToCSS('dotsOptions', 1, code);
 
             return '#000000';
         

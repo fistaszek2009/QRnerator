@@ -34,43 +34,79 @@ export default function StyleForm(props:{
   }, [styleOptions, props.codeData]);
 
   return (
-    <div className="form" style={{ display: props.visible ? 'flex' : 'none' }}>
+    <div className="form" style={{ display: props.visible ? "flex" : "none" }}>
       <div className="form-section">
         <h3>Dots</h3>
-        <Input 
-          label="Shape" 
-          as='select' 
-          value={styleOptions.dotsOptions?.type || 'square'} 
-          options={dotsOptions} onChange={(e)=>updateField('dotsOptions', 'type', e.target.value)}
+        <Input
+          label="Shape"
+          as="select"
+          value={styleOptions.dotsOptions?.type || "square"}
+          options={dotsOptions}
+          onChange={(e) => updateField("dotsOptions", "type", e.target.value)}
         />
-        <ColorInput label="Color" field='dotsOptions' options={styleOptions} onChange={(field:string,value:unknown)=>{updateField('dotsOptions',field,value)}}/>
+        <ColorInput
+          label="Color"
+          field="dotsOptions"
+          options={styleOptions}
+          onChange={(field: string, value: unknown) => {
+            updateField("dotsOptions", field, value);
+          }}
+        />
       </div>
 
       <div className="form-section">
         <h3>Corners Squares</h3>
-          <Input 
-              label="Shape" 
-              as='select' 
-              value={styleOptions.cornersSquareOptions?.type || 'square'} 
-              options={cornersOptions} onChange={(e)=>updateField('cornersSquareOptions', 'type', e.target.value)}
-            />
-        <ColorInput label="Color" field='cornersSquareOptions' options={styleOptions} onChange={(field:string,value:unknown)=>{updateField('cornersSquareOptions',field,value)}}/>
+        <Input
+          label="Shape"
+          as="select"
+          value={styleOptions.cornersSquareOptions?.type || "square"}
+          options={cornersOptions}
+          onChange={(e) =>
+            updateField("cornersSquareOptions", "type", e.target.value)
+          }
+        />
+        <ColorInput
+          label="Color"
+          field="cornersSquareOptions"
+          options={styleOptions}
+          onChange={(field: string, value: unknown) => {
+            updateField("cornersSquareOptions", field, value);
+          }}
+        />
       </div>
 
       <div className="form-section">
         <h3>Corners Dots</h3>
-       <Input 
-            label="Shape" 
-            as='select' 
-            value={styleOptions.cornersDotOptions?.type || 'square'} 
-            options={eyeOptions} onChange={(e)=>updateField('cornersDotOptions', 'type', e.target.value)}
+        <Input
+          label="Shape"
+          as="select"
+          value={styleOptions.cornersDotOptions?.type || "square"}
+          options={eyeOptions}
+          onChange={(e) =>
+            updateField("cornersDotOptions", "type", e.target.value)
+          }
         />
-        <ColorInput label="Color" field='cornersDotOptions' options={styleOptions} onChange={(field:string,value:unknown)=>{updateField('cornersDotOptions',field,value)}}/>
+        <ColorInput
+          label="Color"
+          field="cornersDotOptions"
+          options={styleOptions}
+          onChange={(field: string, value: unknown) => {
+            updateField("cornersDotOptions", field, value);
+          }}
+        />
       </div>
 
       <div className="form-section">
         <h3>Background</h3>
-        <ColorInput label="Color"  field='backgroundOptions' initialValue={'#ffffff'} options={styleOptions} onChange={(field:string,value:unknown)=>{updateField('backgroundOptions',field,value)}}/>  
+        <ColorInput
+          label="Color"
+          field="backgroundOptions"
+          initialValue={"#ffffff"}
+          options={styleOptions}
+          onChange={(field: string, value: unknown) => {
+            updateField("backgroundOptions", field, value);
+          }}
+        />
       </div>
     </div>
   );

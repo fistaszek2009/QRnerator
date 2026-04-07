@@ -14,6 +14,12 @@ main {
   min-height: 300px;
 }
 
+@media screen and (max-width: 1500px) {
+  aside .form-input-label{
+    display: none;
+  }
+}
+
 @media screen and (max-width: 500px) {
   main{
     flex-direction: column;

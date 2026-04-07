@@ -78,9 +78,10 @@ export default function ColorInput({
           className="form-input-color-preview"
           style={{
             background:
-              type !== 0
-                ? decodeQrColorToCSS(props.field, type, localStyles)
-                : initialValue || "transparent",
+            decodeQrColorToCSS(props.field, type, localStyles)
+              // type !== 0
+              //   ? decodeQrColorToCSS(props.field, type, localStyles)
+              //  : initialValue || "transparent",
           }}
         ></span>
         {!opened ? (

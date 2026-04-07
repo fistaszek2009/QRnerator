@@ -15,10 +15,10 @@ const escapeWifiValue = (value: string) => value.replace(/([\\;,:"])/g, "\\$1");
 export function encodeQrData(type: QrType, data: FormDataMap[QrType]) {
   switch (type) {
     case "URL":
-      return (data as FormDataMap["URL"]).url.trim();
+      return unescape(encodeURIComponent((data as FormDataMap["URL"]).url.trim()));
 
     case "Text":
-      return (data as FormDataMap["Text"]).text;
+      return unescape(encodeURIComponent((data as FormDataMap["Text"]).text));
       
     case "Email": {
       const emailData = data as FormDataMap["Email"];
@@ -38,19 +38,19 @@ export function encodeQrData(type: QrType, data: FormDataMap[QrType]) {
       }
 
       const query = params.toString();
-      return `mailto:${emailData.email.trim()}${query ? `?${query}` : ""}`;
+      return unescape(encodeURIComponent(`mailto:${emailData.email.trim()}${query ? `?${query}` : ""}`));
     }
 
     case "Phone": {
       const phoneData = data as FormDataMap["Phone"];
-      return phoneData.phone.trim() ? `tel:${phoneData.phone.trim()}` : "";
+      return unescape(encodeURIComponent(phoneData.phone.trim() ? `tel:${phoneData.phone.trim()}` : ""));
     }
 
     case "SMS": {
       const smsData = data as FormDataMap["SMS"];
-      return smsData.phone.trim()
+      return unescape(encodeURIComponent(smsData.phone.trim()
         ? `SMSTO:${smsData.phone.trim()}:${smsData.message.trim()}`
-        : "";
+        : ""));
     }
     
     case "vCard": {
@@ -77,7 +77,7 @@ export function encodeQrData(type: QrType, data: FormDataMap[QrType]) {
         "END:VCARD",
       ].filter(Boolean);
 
-      return lines.join("\n");
+      return unescape(encodeURIComponent(lines.join("\n")));
     }
     case "Wi-Fi": {
       const wifiData = data as FormDataMap["Wi-Fi"];
@@ -86,14 +86,14 @@ export function encodeQrData(type: QrType, data: FormDataMap[QrType]) {
         return "";
       }
 
-      return [
+      return unescape(encodeURIComponent([
         "WIFI:",
         `T:${wifiData.encryption};`,
         `S:${escapeWifiValue(wifiData.ssid.trim())};`,
         wifiData.encryption !== "nopass" ? `P:${escapeWifiValue(wifiData.password)};` : "",
         wifiData.hidden ? "H:true;" : "", //H:false
         ";",
-      ].join("");
+      ].join("")));
     }
     default:
       return "";

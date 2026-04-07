@@ -29,7 +29,7 @@ function App() {
       type: "svg",
       width: 300,
       height: 300,
-      margin: 10,
+      margin: 300 * (25 / 100) / 2,
       dotsOptions: {
         type: "square",
         roundSize: false,
@@ -103,6 +103,7 @@ function App() {
           <button id="download" onClick={() => {
             const downloadCode = new QRCodeStyling(qrCodeRef.current?._options);
             downloadCode.update({width: exportSize, height: exportSize});
+            downloadCode.update({ margin: exportSize * (qrCodeRef.current!._options.margin / qrCodeRef.current!._options.width) });
 
             const formats: FileExtension[] = ["png", "jpeg", "svg", 'svg'];
             const format = formats[exportFormatIndex] ?? "png";

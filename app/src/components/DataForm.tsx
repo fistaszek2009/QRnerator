@@ -15,7 +15,7 @@ export default function DataForm(props: {
   visible: Boolean;
 }) {
   const selectedType = props.typeOptions[props.typeIndex];
-  const [margin, setMargin] = useState(10);
+  const [margin, setMargin] = useState(25);
   const [exportSize, setExportSize] = useState(300);
   const [formData, setFormData] = useState<FormDataMap>({ ...DEFAULTS_DATA });
 
@@ -39,7 +39,7 @@ export default function DataForm(props: {
 
   useEffect(() => {
     props.codeData.current?.update({
-      margin: margin,
+      margin: props.codeData.current._options.width * (margin / 100) / 2,
     });
   }, [margin]);
 
@@ -224,7 +224,7 @@ export default function DataForm(props: {
         onChange={(e) => setMargin(parseInt(e.target.value) || 0)}
         min={0}
         max={50} //exportSize / 2 - 10
-        unit="px"
+        unit="%"
       />
 
       <Input
