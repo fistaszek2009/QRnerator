@@ -4,8 +4,6 @@ import Input from "./Input";
 import QRCodeStyling from "qr-code-styling";
 import type { FormIconData } from "../utils/types";
 import { DEFAULTS_ICON } from "../utils/types";
-import { set } from "animejs";
-
 
 export default function DataForm(props: {
   codeData: RefObject<QRCodeStyling | null>;

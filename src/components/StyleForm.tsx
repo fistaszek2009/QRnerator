@@ -6,7 +6,7 @@ import Input from "./Input";
 import type QRCodeStyling from "qr-code-styling";
 import type { Options } from "qr-code-styling";
 import { DEFAULTS_STYLE } from "../utils/types";
-import { decodeQrCodeStylingToCSS, decodeQrColorToCSS } from "../utils/codeColor";
+import { decodeQrCodeStylingToCSS } from "../utils/codeColor";
 
 export default function StyleForm(props:{
   codeData: RefObject<QRCodeStyling | null>;

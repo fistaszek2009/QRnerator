@@ -107,7 +107,7 @@ function App() {
         <aside>
           <div id="code" ref={codeRef}></div>
           <RowSelect
-            options={["PNG", "JPEG", "SVG", "BITMAP"]}
+            options={["PNG", "JPEG", "SVG", "ARRAY"]}
             selected={exportFormatIndex}
             onSelectedChange={setExportFormatIndex}
             label="Download file type"
