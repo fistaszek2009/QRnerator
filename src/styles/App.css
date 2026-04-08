@@ -25,12 +25,12 @@ main {
   }
 }
 
-
 @media screen and (max-width: 600px) {
   main {
     flex-direction: column;
-    width: clamp(300px, 90vw, 575px) !important;
+    width: clamp(300px, 95vw, 600px) !important;
     min-width: 300px;
+    max-width: 95% !important;
     height: auto !important;
     margin: 2em 0;
   }
@@ -132,10 +132,20 @@ main {
   }
 
   #download{
-    width:33% !important;
-    font-size: clamp(1em, 3vw, 1.5em) !important;
+    width:40% !important;
+    font-size: clamp(1em, 2.8vw, 1.5em) !important;
   }
 }
+
+@media screen and (max-width: 450px) {
+   .main-title{
+    font-size: 3em !important;
+  }
+  main{
+    margin:2.5em auto !important;
+  }
+}
+
 aside {
   display:flex;
   flex-direction: column;
@@ -310,6 +320,7 @@ aside #code svg {
 }
 
 #download{
+  color:white !important;
   font-family: 'Inter', monospace;
   font-weight: 600;
   font-size: clamp(0.9em, 1vw, 1.75em);
