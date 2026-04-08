@@ -1,14 +1,12 @@
 <div align="center">
 
-# <img src="./src/assets/QRnerator-Icon-Transparent.png" alt="QRnerator Logo" style="height:30px; width:auto; vertical-align:bottom;"> QRnerator
+# <img src="./src/assets/QRnerator-Icon-Transparent.png" alt="QRnerator Logo" style="height:40px; width:auto; vertical-align:middle;"> QRnerator
 
 **A sleek, highly customizable QR code generator with UTF-8 support.**
 
 ![React icon](https://img.shields.io/badge/-React-58C4DC?logo=react\&logoColor=white\&style=flat)
 ![Vite icon](https://img.shields.io/badge/-Vite-9752FF?logo=vite\&logoColor=white\&style=flat)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/t/fistaszek2009/QRnerator?logo=github&labelColor=%23ad8702&color=%23636362)
-
-//video
 
 </div>
 
@@ -40,11 +38,10 @@ npm install
 ```console
 npm run build
 cd dist
-npx node-static -p 8888
+npx node-static -a 0.0.0.0 -p 8888 
 ```
 
 Then visit: [http://127.0.0.1:8888](http://127.0.0.1:8888)
-
 
 ## Usage & Features
 
