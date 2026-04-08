@@ -135,14 +135,18 @@ main {
     width:40% !important;
     font-size: clamp(1em, 2.8vw, 1.5em) !important;
   }
+
+  #root{
+    display:flex !important;
+    flex-direction: column;
+    gap:1em;
+    align-items: center;
+  }
 }
 
 @media screen and (max-width: 450px) {
    .main-title{
     font-size: 3em !important;
-  }
-  main{
-    margin:2.5em auto !important;
   }
 }
 
