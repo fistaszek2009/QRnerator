@@ -1,2 +1,93 @@
-# qr-code-generator
-<img width='80' alt='logo' src='./app/src/assets/QRnerator-Icon.png'>
+<div align="center">
+
+# <img src="./src/assets/QRnerator-Icon-Transparent.png" alt="QRnerator Logo" style="height:30px; width:auto; vertical-align:bottom;"> QRnerator
+
+**A sleek, highly customizable QR code generator with UTF-8 support.**
+
+![React icon](https://img.shields.io/badge/-React-58C4DC?logo=react\&logoColor=white\&style=flat)
+![Vite icon](https://img.shields.io/badge/-Vite-9752FF?logo=vite\&logoColor=white\&style=flat)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/t/fistaszek2009/QRnerator?logo=github&labelColor=%23ad8702&color=%23636362)
+
+//video
+
+</div>
+
+-----
+
+### Overview
+
+**QRnerator** was developed as a school project with a clear mission: to combine high-end design with practical utility. Unlike standard generators, QRnerator provides an extensive suite of styling tools while ensuring robust data encoding.
+
+## Setup
+
+Follow these steps to get the project running locally:
+
+#### 1\. Clone the repository
+
+```console
+git clone https://github.com/fistaszek2009/QRnerator.git
+cd QRnerator
+```
+
+#### 2\. Install dependencies
+
+```console
+npm install
+```
+
+#### 3\. Build and Preview
+
+```console
+npm run build
+cd dist
+npx node-static -p 8888
+```
+
+Then visit: [http://127.0.0.1:8888](http://127.0.0.1:8888)
+
+
+## Usage & Features
+
+The generator is divided into three core modules for maximum flexibility:
+
+### 1\. Data Types
+
+QRnerator supports **seven** distinct types of data encoding:
+
+| \# | Type | Action upon scanning |
+|:---:|:---|:---|
+| 1 | **URL** | Opens a website (default) |
+| 2 | **Text** | Displays plain text |
+| 3 | **Email** | Drafts an email with a pre-filled recipient |
+| 4 | **Phone** | Initiates a call to a specific number |
+| 5 | **SMS** | Drafts a message with a specific body |
+| 6 | **vCard** | Displays a complete contact card |
+| 7 | **Wi-Fi** | Connects directly to a specified network |
+
+### 2\. Styling Engine
+
+Customize every part of the QR code (dots, corners, background) with precision:
+
+  * **Dot Styles:** Choose from `square`, `dots`, `classy`, `rounded`, etc.
+  * **Color Control:** Supports solid colors (HEX/RGB) or transparent backgrounds.
+  * **Gradients:** Linear or radial gradient support.
+
+### 3\. Branding
+
+Seamlessly embed your own **Logo/Icon** in the center of the QR code to enhance brand recognition without breaking the data integrity.
+
+## References & Credits
+
+### Libraries & Licenses
+
+This project utilizes the following open-source packages:
+
+  * [qr-code-styling](https://www.npmjs.com/package/qr-code-styling) (MIT) - The core engine for QR generation and styling.
+  * [qrcode-generator](https://www.npmjs.com/package/qrcode-generator) (MIT) - QR code data as array calculations.
+  * [Anime.js](https://animejs.com/) (MIT) - For UI animations.
+  * [FontAwesome](https://fontawesome.com/) (CC BY 4.0 / Font Awesome Free License) - Iconography.
+
+### Inspriation
+
+  * **Chris Rapacz ([skanujmnie.pl](https://www.skanujmnie.pl/))** - Design inspiration.
+  * **Typography:** Inter (OFL), Office Code Pro (OFL), Young Serif (OFL).
