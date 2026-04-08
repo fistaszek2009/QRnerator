@@ -324,7 +324,7 @@ aside #code svg {
 }
 
 #download{
-  color:white !important;
+  color:white;
   font-family: 'Inter', monospace;
   font-weight: 600;
   font-size: clamp(0.9em, 1vw, 1.75em);
