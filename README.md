@@ -17,11 +17,15 @@
 
 -----
 
+### Live Demo
+
+👉 https://fistaszek2009.github.io/QRnerator/
+
 ### Overview
 
 **QRnerator** was developed as a school project with a clear mission: to combine high-end design with practical utility. Unlike standard generators, QRnerator provides an extensive suite of styling tools while ensuring robust data encoding. There's no need to worry about Polish, Armenian, or Georgian characters in the code.
 
-## Setup
+## Local setup
 
 Follow these steps to get the project running locally:
 
@@ -42,11 +46,10 @@ npm install
 
 ```console
 npm run build
-cd dist
-npx node-static -a 0.0.0.0 -p 8888 
+npm run preview
 ```
 
-Then visit: [http://127.0.0.1:8888](http://127.0.0.1:8888)
+Then visit: [http://localhost:4173/QRnerator/](http://localhost:4173/QRnerator/)
 
 ## Usage & Features
 
