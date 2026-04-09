@@ -19,7 +19,7 @@
 
 ### Live Demo
 
-👉 https://fistaszek2009.github.io/QRnerator/
+### 👉 https://fistaszek2009.github.io/QRnerator/
 
 ### Overview
 
