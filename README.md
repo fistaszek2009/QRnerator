@@ -9,9 +9,9 @@
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/t/fistaszek2009/QRnerator?logo=github&labelColor=%23ad8702&color=%23636362)
 
  <p align="center">
-  <img src="https://github.com/user-attachments/assets/63f51f08-9dc7-4032-8f09-e15a2e3a37c6" height="200"/>
-  <img src="https://github.com/user-attachments/assets/4e57b62f-410f-4850-9d3e-c5f07e861bae" height="200"/>
-  <img src="https://github.com/user-attachments/assets/c93f8f92-e9df-4577-8877-034d3816949e" height="200"/>
+  <img src="https://github.com/user-attachments/assets/5d0f33f1-9fa6-4628-a616-cd133856698e" height="200"/>
+  <img src="https://github.com/user-attachments/assets/ee469dca-57d7-4b55-aedb-b4715b699f50" height="200"/>
+  <img src="https://github.com/user-attachments/assets/dd10bcea-ee66-4f5f-8bfa-2f0cb483477b" height="200"/>
 </p>
 </div>
 
